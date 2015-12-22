@@ -49,7 +49,7 @@
 -->
     <div class="row">
       <div class="large-8 medium-8 columns">
-        <h5>Here&rsquo;s your basic grid:</h5>
+        <h5>Team Datacenter Temperature Overview:</h5>
         <!-- Grid Example -->
 
         <div class="row">
@@ -58,50 +58,109 @@
               <!-- TEAM 1 TEMPERATUER-->
               <div class=tempval><p id="t1-temp">Loading Temperature...</p></div>
               <script type="text/javascript">
-              //var tempdoc1 = 't1-temp.txt';
-              //var teamID = 't1-temp';
               setInterval(function() {loadDoc('t1-temp.txt', 't1-temp')},3000);
               </script>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="large-6 medium-6 columns">
-            <div class="callout">
-              <p>Six columns</p>
+          <div class="large-4 columns">
+            <div class="callout ">
+              <div class=tempval><p id="t2-temp">Loading Temperature...</p></div>
+              <!-- TEAM 2 TEMPERATURE-->
+              <script type="text/javascript">
+              setInterval(function() {loadDoc('t2-temp.txt', 't2-temp')},3000);
+              </script>
             </div>
           </div>
-          <div class="large-6 medium-6 columns">
-            <div class="callout">
-              <p>Six columns</p>
+          <div class="large-4 columns">
+            <div class="callout ">
+              <div class=tempval><p id="t3-temp">Loading Temperature...</p></div>
+              <!-- TEAM 3 TEMPERATURE-->
+              <script type="text/javascript">
+              setInterval(function() {loadDoc('t3-temp.txt', 't3-temp')},3000);
+              </script>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="large-4 medium-4 small-4 columns">
             <div class="callout ">
-              <div class=tempval><p id="t2-temp">Loading Temperature...</p></div>
-              <!-- TEAM 2 TEMPERATURE-->
+              <div class=tempval><p id="t4-temp">Loading Temperature...</p></div>
+              <!-- TEAM 4 TEMPERATURE-->
               <script type="text/javascript">
-              //var tempdoc = 't2-temp.txt';
-              //var teamID = 't2-temp';
-              setInterval(function() {loadDoc('t2-temp.txt', 't2-temp')},3000);
+              setInterval(function() {loadDoc('t4-temp.txt', 't4-temp')},3000);
               </script>
             </div>
           </div>
           <div class="large-4 medium-4 small-4 columns">
-            <div class="callout">
-              <p>Four columns</p>
+            <div id="t5box" class="callout ">
+              <div class=tempval><p id="t5-temp">Loading Temperature...</p></div>
+              <!-- TEAM 5 TEMPERATURE-->
+              <script type="text/javascript">
+              //var t5div = document.getElementById("t5box");
+              //div.style.backgroundColor="red";
+              setInterval(function() {loadDoc('t5-temp.txt', 't5-temp')},3000);
+              </script>
             </div>
           </div>
           <div class="large-4 medium-4 small-4 columns">
-            <div class="callout">
-              <p>Four columns</p>
+            <div class="callout ">
+              <div class=tempval><p id="t6-temp">Loading Temperature...</p></div>
+              <!-- TEAM 6 TEMPERATURE-->
+              <script type="text/javascript">
+              setInterval(function() {loadDoc('t6-temp.txt', 't6-temp')},3000);
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-4 medium-4 small-4 columns">
+            <div class="callout ">
+              <div class=tempval><p id="t7-temp">Loading Temperature...</p></div>
+              <!-- TEAM 7 TEMPERATURE-->
+              <script type="text/javascript">
+              setInterval(function() {loadDoc('t7-temp.txt', 't7-temp')},3000);
+              </script>
+            </div>
+          </div>
+          <div class="large-4 medium-4 small-4 columns">
+            <div class="callout ">
+              <h5>Team 8</h5>
+              <div class=tempval><p id="t8-temp">Loading Temperature...</p></div>
+              <!-- TEAM 8 TEMPERATURE-->
+              <script type="text/javascript">
+              setInterval(function() {loadDoc('t8-temp.txt', 't8-temp')},3000);
+              </script>
+            </div>
+          </div>
+          <div class="large-4 medium-4 small-4 columns">
+            <div class="callout ">
+              <div class=tempval><p id="t9-temp">Loading Temperature...</p></div>
+              <!-- TEAM 9 TEMPERATURE-->
+              <script type="text/javascript">
+              setInterval(function() {loadDoc('t9-temp.txt', 't9-temp')},3000);
+              </script>
             </div>
           </div>
         </div>
 
         <hr />
+
+
+        <!--
+                <div class="row">
+                  <div class="large-6 medium-6 columns">
+                    <div class="callout">
+                      <p>Six columns</p>
+                    </div>
+                  </div>
+                  <div class="large-6 medium-6 columns">
+                    <div class="callout">
+                      <p>Six columns</p>
+                    </div>
+                  </div>
+                </div>
+              -->
+
 <!--
         <h5>We bet you&rsquo;ll need a form somewhere:</h5>
         <form>
