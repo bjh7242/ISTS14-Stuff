@@ -7,6 +7,7 @@ CREATE TABLE login (userID int primary key AUTO_INCREMENT,
   name varchar(255) not null,
   username varchar(255) not null,
   password varchar(255) not null,
+  role varchar(255) default "user",
   emailAddr varchar(255));
 ALTER TABLE login ADD UNIQUE (username);
 
@@ -18,11 +19,12 @@ CREATE TABLE accounts (userID int AUTO_INCREMENT,
   primary key (userID,accountNum));
 
 -- Create admin user
-INSERT INTO login (userID,name,username,password,emailAddr) values(
+INSERT INTO login (userID,name,username,password,role,emailAddr) values(
   '0',
   'Administrator',
   'admin',
   'Changeme14',
+  'admin',
   'admin@localhost');
 
 -- Create Admin Account
