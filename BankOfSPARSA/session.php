@@ -13,19 +13,17 @@ function SignIn() {
     //echo "query = mysql_query(\"SELECT * FROM login where username = '$_POST[username]' AND password = '$_POST[password]'\") or die(mysql_error());";
     $query = mysql_query("SELECT * FROM login where username = '$_POST[username]' AND password = '$_POST[password]'") or die(mysql_error());
   	$row = mysql_fetch_array($query) or die(mysql_error());
-    echo "row is: ";
-    print_r($row);
-    if(!empty($row['username']) AND !empty($row['password'])) {
+    if(isset($row['username']) && isset($row['password']) && !empty($row['username']) && !empty($row['password'])) {
   		$_SESSION['username'] = $row['username'];
       $_SESSION['name'] = $row['name'];
-      $_SESSION['email'] = $row['emailAddr'];
+      $_SESSION['emailAddr'] = $row['emailAddr'];
       $_SESSION['userID'] = $row['userID'];
   		//echo $row['role'] . "\r\n";
       if($row['role'] == 'admin') {
         $_SESSION['role'] = 'admin';
         echo "SUCCESSFULLY LOGGED IN TO ADMIN PROFILE PAGE...\n";
         //print_r($_SESSION);
-        //redirect('./admin/panel.php');
+        redirect('./admin/panel.php');
       }
       elseif($row['role'] == 'user') {
         $_SESSION['role'] = 'user';
