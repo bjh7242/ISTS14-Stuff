@@ -19,7 +19,7 @@ function SignIn()
       //echo $row['role'] . "\r\n";
       if($row['role'] == 'admin') {
         //$_SESSION['is_admin'] == "true";
-        redirect('http://localhost/admin/panel.php');
+        redirect('./admin/panel.php');
         //print_r($_SESSION);
         //print_r($_POST);
       }
