@@ -1,12 +1,19 @@
-<html>
+<?php
+  session_start();
+?>
 <head>
   <title>Bank of SPARSA | Admin Panel</title>
 </head>
 <body>
   <h1>Admin Panel</h1>
   <?php
-    print_r($_SESSION);
+    echo "Welcome " . $_SESSION['username'];
+    //echo "hello";
+    //print_r($_SESSION);
   ?>
-  <p>Welcome to the Admin Panel</p>
+  <h2>Welcome to the Admin Panel</h2>
+  <ul>
+    <li><a href="./user_mgmt.php">Add User</a></li>
+  </ul>
 </body>
 </html>
