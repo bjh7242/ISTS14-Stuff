@@ -20,6 +20,14 @@
     $row = $result->fetch_assoc();
     $newUserID = $row['userID'];
 
+    // verify that the new user does not exist already
+    $userCheck = $mysqli->query("SELECT * FROM login where username = '$username'");
+    $userExists = $userCheck->fetch_assoc();
+    if (isset($userExists)) {
+      echo "Username already exists";
+      exit();
+    }
+
     // create random 6 digit PIN for new user
     $newPIN = rand(100000,999999);
 
@@ -35,8 +43,7 @@
       if (!isset($acctExists)) {
         break;
       }
-    //} while (gettype($acctExists) != NULL);
-  } while (true);
+    } while (true);
     echo "New Acct Number: " . $newAcctNum . "<br />";
     echo "New PIN: " . $newPIN;
     $mysqli->query("INSERT INTO accounts (userID,accountNum,accountPIN) values ('$newUserID','$newAcctNum','$newPIN')");
@@ -44,29 +51,5 @@
   else {
     echo "Vars not set :(";
   }
-/*
-  $select = mysql_query("SELECT * FROM login WHERE username = '$username'");
-  $row = mysql_fetch_array($select) or die(mysql_error());
-  $userID = $row['userID'];
-  //echo $userID;
 
-  $newAcctNum = rand(1000000000,9999999999);
-  $newPIN = rand(000000,999999);
-
-  do {
-    $checkAcctNum = mysql_query("SELECT * FROM accounts WHERE accountNum = '$newAcctNum'");
-    $row = mysql_fetch_array($select) or die(mysql_error());
-    print_r($row);
-    if ($row) {
-      //echo "lolololol the row is true";
-      $acct = mysql_query("INSERT INTO accounts (userID,accountNum,accountPIN) values (
-      '$userID', '$newAcctNum', '$newPIN'");
-    }
-  } while (empty($row['accountNum']));
-  //else {
-    //$acct = mysql_query("INSERT INTO accounts (userID,accountNum,accountPIN) values (
-    //'$userID', '$newAcctNum', '$newPIN'");
-  //}
-
-*/
 ?>
