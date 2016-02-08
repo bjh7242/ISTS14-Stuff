@@ -10,6 +10,7 @@ CREATE TABLE login (userID int primary key AUTO_INCREMENT,
   role varchar(255) default "user",
   emailAddr varchar(255));
 ALTER TABLE login ADD UNIQUE (username);
+ALTER TABLE login ADD UNIQUE (emailAddr);
 
 -- Account Values Table
 CREATE TABLE accounts (userID int AUTO_INCREMENT,

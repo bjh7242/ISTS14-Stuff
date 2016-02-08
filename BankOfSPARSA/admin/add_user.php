@@ -17,11 +17,16 @@
     // verify that the new user does not exist already
     $userCheck = $mysqli->query("SELECT * FROM login where username = '$username'");
     $userExists = $userCheck->fetch_assoc();
-    echo "userExists: " . $userExists . "<br />";
-    print_r($userExists);
-    echo "<br />";
     if (isset($userExists)) {
-      echo "Username already exists";
+      echo "Username or email address is already registered.";
+      exit();
+    }
+
+    // verify that the email addr of the new user does not exist already
+    $emailCheck = $mysqli->query("SELECT * FROM login where emailAddr = '$email'");
+    $emailExists = $userCheck->fetch_assoc();
+    if (isset($emailExists)) {
+      echo "Username or email address is already registered.";
       exit();
     }
 
