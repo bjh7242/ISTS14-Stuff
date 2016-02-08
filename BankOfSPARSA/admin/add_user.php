@@ -13,20 +13,25 @@
     // connect to DB
     $mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
     // might need to do error handling for db connection here?
+
+    // verify that the new user does not exist already
+    $userCheck = $mysqli->query("SELECT * FROM login where username = '$username'");
+    $userExists = $userCheck->fetch_assoc();
+    echo "userExists: " . $userExists . "<br />";
+    print_r($userExists);
+    echo "<br />";
+    if (isset($userExists)) {
+      echo "Username already exists";
+      exit();
+    }
+
+    // add the user to the DB
     $mysqli->query("INSERT INTO login (name,username,password,emailAddr,role) values ('$name','$username','$password','$email','$role')");
 
     // get user ID of new user
     $result = $mysqli->query("SELECT * FROM login WHERE username = '$username'");
     $row = $result->fetch_assoc();
     $newUserID = $row['userID'];
-
-    // verify that the new user does not exist already
-    $userCheck = $mysqli->query("SELECT * FROM login where username = '$username'");
-    $userExists = $userCheck->fetch_assoc();
-    if (isset($userExists)) {
-      echo "Username already exists";
-      exit();
-    }
 
     // create random 6 digit PIN for new user
     $newPIN = rand(100000,999999);
