@@ -13,7 +13,7 @@ ALTER TABLE login ADD UNIQUE (username);
 
 -- Account Values Table
 CREATE TABLE accounts (userID int AUTO_INCREMENT,
-  accountNum int(10),
+  accountNum bigint(10) unsigned,
   accountPIN int(4),
   balance float(20,2) default 0.0,
   primary key (userID));
