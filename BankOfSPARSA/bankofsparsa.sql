@@ -16,7 +16,8 @@ CREATE TABLE accounts (userID int AUTO_INCREMENT,
   accountNum int(10),
   accountPIN int(4),
   balance float(20,2) default 0.0,
-  primary key (userID,accountNum));
+  primary key (userID));
+ALTER TABLE accounts ADD UNIQUE (accountNum);
 
 -- Create admin user
 INSERT INTO login (userID,name,username,password,role,emailAddr) values(
