@@ -1,8 +1,9 @@
 <?php
   session_start();
-  include_once('../includes/functions.inc.php');
-  //include_once('../includes/config.inc.php')
-
+/*
+  $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+  include_once("$root/includes/functions.inc.php");
+*/
 ?>
 
 <html>
@@ -18,7 +19,7 @@
     Role: <br />
     admin <input type="radio" name="role" value="admin">
     user <input type="radio" name="role" value="user" checked><br />
-    <input type="submit" value="submit" onclick="add_user.php"><br />
+    <input type="submit" value="submit"><br />
   </form>
 </body>
 </html>

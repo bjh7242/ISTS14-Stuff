@@ -1,13 +1,14 @@
 <?php
-include("includes/config.inc.php");
-include("includes/functions.inc.php");
-
-// connect to the DB
-$con=mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or die("Failed to connect to MySQL: " . mysql_error());
-$db=mysql_select_db(DB_NAME,$con) or die("Failed to connect to MySQL: " . mysql_error());
-
-function SignIn() {
   session_start();      //starting the session for user profile page
+
+  $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+  include("$root/includes/config.inc.php");
+  include("$root/includes/functions.inc.php");
+
+  // connect to the DB
+  $con=mysql_connect(DB_HOST,DB_USER,DB_PASSWORD) or die("Failed to connect to MySQL: " . mysql_error());
+  $db=mysql_select_db(DB_NAME,$con) or die("Failed to connect to MySQL: " . mysql_error());
+
   //print "USERNAME IS " . $_POST['username'];
   if(!empty($_POST['username'])) {
     //echo "query = mysql_query(\"SELECT * FROM login where username = '$_POST[username]' AND password = '$_POST[password]'\") or die(mysql_error());";
@@ -21,14 +22,14 @@ function SignIn() {
   		//echo $row['role'] . "\r\n";
       if($row['role'] == 'admin') {
         $_SESSION['role'] = 'admin';
-        echo "SUCCESSFULLY LOGGED IN TO ADMIN PROFILE PAGE...\n";
+        //echo "SUCCESSFULLY LOGGED IN TO ADMIN PROFILE PAGE...\n";
         //print_r($_SESSION);
-        redirect('./admin/panel.php');
+        redirect("../admin/panel.php");
       }
       elseif($row['role'] == 'user') {
         $_SESSION['role'] = 'user';
-        echo "SUCCESSFULLY LOGGED IN TO USER PROFILE PAGE...\n";
-        //redirect('./user/panel.php');
+        //echo "SUCCESSFULLY LOGGED IN TO USER PROFILE PAGE...\n";
+        redirect("../user/panel.php");
       }
   	}
   	else {
@@ -37,11 +38,11 @@ function SignIn() {
       //redirect('./index.php');
   	}
   }
-}
 
-if(isset($_POST['submit']))
-{
-  SignIn();
-}
-
+  /*
+  if(isset($_POST['submit']))
+  {
+    SignIn();
+  }
+  */
 ?>

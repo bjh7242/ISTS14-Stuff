@@ -1,7 +1,8 @@
 <?php
   session_start();
-  //include('../includes/functions.inc.php');
-  include_once('../includes/config.inc.php');
+  $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+  //include('$root/includes/functions.inc.php');
+  include_once("$root/includes/config.inc.php");
 
   if (isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emailAddr']) && isset($_POST['role'])) {
     $name = $_POST['name'];

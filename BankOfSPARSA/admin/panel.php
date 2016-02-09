@@ -13,7 +13,7 @@
   ?>
   <h2>Welcome to the Admin Panel</h2>
   <ul>
-    <li><a href="./user_mgmt.php">Add User</a></li>
+    <li><a href="/admin/user_mgmt.php">Add User</a></li>
   </ul>
 </body>
 </html>
