@@ -1,5 +1,7 @@
 <?php
   session_start();
+  $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+  include("$root/includes/functions.inc.php");
 ?>
 <head>
   <title>Bank of SPARSA | Admin Panel</title>
@@ -12,8 +14,10 @@
     //print_r($_SESSION);
   ?>
   <h2>Welcome to the Admin Panel</h2>
+  Add the twitter feed here to see user feedback.<br>
   <ul>
     <li><a href="/admin/user_mgmt.php">Add User</a></li>
   </ul>
+  <?php footer(); ?>
 </body>
 </html>

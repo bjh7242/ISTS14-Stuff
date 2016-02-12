@@ -5,6 +5,7 @@
   include_once("$root/includes/config.inc.php");
 
   if (isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emailAddr']) && isset($_POST['role'])) {
+    // check to make sure the email address is a valid formatted one
     if (!filter_var($_POST['emailAddr'], FILTER_VALIDATE_EMAIL)) {
       echo "Invalid Email Address Format.";
       die();
