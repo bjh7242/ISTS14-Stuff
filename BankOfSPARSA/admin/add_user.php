@@ -91,11 +91,18 @@
 
       // bind the results of the query to each field
       $stmt->bind_result($acctExists);
-      $stmt->close();
 
+      $result = $stmt->store_result();
+      if ($stmt->num_rows() === 1) {
+        while ($stmt->fetch()) {
+          //store the values for the last matched user
+          $existingAcct = $acctExists;
+        }
+      }
       // break if the account number was not found in the DB, else loop again
-      if (!isset($acctExists)) {
+      if (!isset($existingAcct)) {
         break;
+        $stmt->close();
       }
     } while (true);
     echo "New Acct Number: " . $newAcctNum . "<br />";
