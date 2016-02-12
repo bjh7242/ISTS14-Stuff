@@ -17,8 +17,9 @@
 
     <h3>Transfer Money</h3>
     <form name="transfer" action="transfer.php" method="post">
-      Destination Routing Number: <input type="text" name="Destination Routing Number" value=""><br>
-      Destination Account Number: <input type="text" name="Destination Account Number" value=""><br>
+      Destination Routing Number: <input type="text" name="dst_routing_num" value=""><br>
+      Destination Account Number: <input type="text" name="dst_acct" value=""><br>
+      Amount: <input type="text" name="amount" value=""><br>
       <input type="submit" name="submit" value="Submit">
     </form>
   <ul>
