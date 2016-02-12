@@ -57,7 +57,7 @@
       // if the role is an admin, redirect to the admin page
       redirect("../admin/panel.php");
     }
-    elseif($role=== 'user') {
+    elseif($role === 'user') {
       // if the role is a user, redirect to user panel
       redirect("../user/panel.php");
     }
