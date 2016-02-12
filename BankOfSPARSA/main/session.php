@@ -51,7 +51,7 @@
       exit();
     }
 
-    echo "variables: $userID $name $username $emailAddr $role";
+    //echo "variables: $userID $name $username $emailAddr $role";
 
     if($role === 'admin') {
       // if the role is an admin, redirect to the admin page
