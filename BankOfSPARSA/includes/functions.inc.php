@@ -75,7 +75,47 @@ function get_balance($accountNum) {
   $stmt->close();
   $mysqli->close();
 
-  return round($bal,2);
+  return number_format($bal,2);
+}
+
+function get_last_login($username) {
+  $mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
+
+  // verify that the new user does not exist already
+  // prepare select statement
+  if (!($stmt = $mysqli->prepare("SELECT last_login FROM login where username = ?"))) {
+    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+  }
+
+  // bind username and emailAddr params
+  if (!$stmt->bind_param("s", $username)) {
+    echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+  }
+
+  if (!$stmt->execute()) {
+    echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+  }
+
+  // bind the results of the query
+  $stmt->bind_result($login);
+
+  // make sure only 1 account exists, set the balance to $bal and return that
+  $result = $stmt->store_result();
+  if ($stmt->num_rows() === 1) {
+    while ($stmt->fetch()) {
+      $last_login = $login;
+    }
+  }
+
+  $stmt->close();
+  $mysqli->close();
+
+  return $last_login;
+}
+
+function footer() {
+  echo "<center><br><br><a href=\"\">Locations</a> | <a href=\"\">Contact Us</a> | <a href=\"\">Help</a> | <a href=\"\">Careers</a><br>";
+  echo "&copy;2016 Bank of SPARSA</center>";
 }
 
 ?>

@@ -8,7 +8,8 @@ CREATE TABLE login (userID int primary key AUTO_INCREMENT,
   username varchar(255) not null,
   password varchar(255) not null,
   role varchar(255) default "user",
-  emailAddr varchar(255));
+  emailAddr varchar(255),
+  last_login DATETIME on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
 ALTER TABLE login ADD UNIQUE (username);
 ALTER TABLE login ADD UNIQUE (emailAddr);
 
@@ -19,6 +20,16 @@ CREATE TABLE accounts (userID int AUTO_INCREMENT,
   balance float(20,2) default 0.0,
   primary key (userID));
 ALTER TABLE accounts ADD UNIQUE (accountNum);
+
+-- Create Transactions Table
+CREATE TABLE transactions ( transactionID INT NOT NULL AUTO_INCREMENT,
+  src_routing_num BIGINT UNSIGNED NOT NULL,
+  src_acct BIGINT UNSIGNED NOT NULL,
+  dst_routing_num BIGINT UNSIGNED NOT NULL,
+  dst_acct BIGINT UNSIGNED NOT NULL,
+  amount FLOAT NULL DEFAULT NULL,
+  timestamp DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (transactionID));
 
 -- Create admin user
 INSERT INTO login (userID,name,username,password,role,emailAddr) values(
