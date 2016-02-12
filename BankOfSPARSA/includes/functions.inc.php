@@ -78,6 +78,53 @@ function get_balance($accountNum) {
   return number_format($bal,2);
 }
 
+// this function assumes that all validation to update the balance was performed
+// prior to calling
+function update_balance($accountNum, $balance) {
+  $mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
+
+  // verify that the new user does not exist already
+  // prepare select statement
+  if (!($stmt = $mysqli->prepare("UPDATE accounts SET balance = ? where accountNum = ?"))) {
+    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+  }
+
+  // bind username and emailAddr params
+  if (!$stmt->bind_param("di", $balance, $accountNum)) {
+    echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+  }
+
+  if (!$stmt->execute()) {
+    echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+  }
+
+  $stmt->close();
+  $mysqli->close();
+}
+
+function log_transaction($src_routing_num, $src_account_num, $dst_routing_num, $dst_account_num, $balance) {
+  $mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
+
+  // prepare select statement
+  if (!($stmt = $mysqli->prepare("INSERT INTO transactions (src_routing_num, src_acct, dst_routing_num, dst_acct, amount) VALUES (?, ?, ?, ?, ?)"))) {
+    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+  }
+
+  // bind all params
+  if (!$stmt->bind_param("iiiid", $src_routing_num, $src_account_num, $dst_routing_num, $dst_account_num, $balance)) {
+    echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+  }
+
+  if (!$stmt->execute()) {
+    echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+  }
+
+  $stmt->close();
+  $mysqli->close();
+}
+
+
+
 function get_last_login($username) {
   $mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
 

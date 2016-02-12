@@ -15,8 +15,8 @@
   */
   ?>
   <form name="login" action="/main/session.php" method="post">
-    Username: <input type="text" name="username" value="Username"><br />
-    Password: <input type="password" name="password" value="password" autocomplete="off"><br />
+    Username: <input type="text" name="username" value=""><br />
+    Password: <input type="password" name="password" value="" autocomplete="off"><br />
     <input type="submit" name="submit" value="Submit">
   </form>
   Forgot your password? Reset it <a href="">here</a>.
