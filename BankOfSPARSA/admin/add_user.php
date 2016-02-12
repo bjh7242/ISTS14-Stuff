@@ -5,6 +5,11 @@
   include_once("$root/includes/config.inc.php");
 
   if (isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emailAddr']) && isset($_POST['role'])) {
+    if (!filter_var($_POST['emailAddr'], FILTER_VALIDATE_EMAIL)) {
+      echo "Invalid Email Address Format.";
+      die();
+    }
+
     // connect to DB
     $mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
     // might need to do error handling for db connection here?
