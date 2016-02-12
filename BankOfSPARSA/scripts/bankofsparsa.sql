@@ -33,4 +33,4 @@ INSERT INTO login (userID,name,username,password,role,emailAddr) values(
 INSERT INTO accounts (userID,accountNum,accountPIN) values (
   '0',
   FLOOR(RAND() * (9999999999 - 1000000000 + 1)) + 1000000000,
-  FLOOR(RAND() * (999999 - 000000 + 1)) + 000000);
+  FLOOR(RAND() * (999999 - 100000 + 1)) + 100000);
