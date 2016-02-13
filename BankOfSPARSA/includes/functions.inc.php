@@ -43,6 +43,8 @@ function get_accountNum($username) {
   return $accountNum;
 }
 
+// returns balance if exists
+// if error, return NULL
 function get_balance($accountNum) {
   $mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
 
@@ -70,6 +72,10 @@ function get_balance($accountNum) {
     while ($stmt->fetch()) {
       $bal = $balance;
     }
+  }
+  // if there was an error with the query, return empty string
+  else {
+    return NULL;
   }
 
   $stmt->close();
@@ -111,7 +117,7 @@ function log_transaction($src_routing_num, $src_account_num, $dst_routing_num, $
   }
 
   // bind all params
-  if (!$stmt->bind_param("iiiid", $src_routing_num, $src_account_num, $dst_routing_num, $dst_account_num, $balance)) {
+  if (!$stmt->bind_param("sisid", $src_routing_num, $src_account_num, $dst_routing_num, $dst_account_num, $balance)) {
     echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
   }
 
@@ -161,8 +167,8 @@ function get_last_login($username) {
 }
 
 function footer() {
-  echo "<center><br><br><a href=\"\">Locations</a> | <a href=\"\">Contact Us</a> | <a href=\"\">Help</a> | <a href=\"\">Careers</a><br>";
-  echo "&copy;2016 Bank of SPARSA</center>";
+  echo "<div id=\"footer\">\n<center><br><br><a href=\"\">Locations</a> | <a href=\"\">Contact Us</a> | <a href=\"\">Help</a> | <a href=\"\">Careers</a><br>";
+  echo "&copy;2016 Bank of SPARSA</center></div>\n";
 }
 
 ?>
