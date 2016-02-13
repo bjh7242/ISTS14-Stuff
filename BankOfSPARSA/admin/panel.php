@@ -2,22 +2,15 @@
   session_start();
   $root = realpath($_SERVER["DOCUMENT_ROOT"]);
   include("$root/includes/functions.inc.php");
+  include("$root/admin/content.php");
 ?>
-<head>
-  <title>Bank of SPARSA | Admin Panel</title>
-</head>
-<body>
-  <h1>Admin Panel</h1>
+
+<html>
   <?php
-    echo "Welcome " . $_SESSION['username'];
-    //echo "hello";
-    //print_r($_SESSION);
+    print_admin_panel_header();
+    echo "<body>";
+    print_admin_panel($_GET['page']);
+    footer();
+    echo "</body>";
   ?>
-  <h2>Welcome to the Admin Panel</h2>
-  Add the twitter feed here to see user feedback.<br>
-  <ul>
-    <li><a href="/admin/user_mgmt.php">Add User</a></li>
-  </ul>
-  <?php footer(); ?>
-</body>
 </html>
