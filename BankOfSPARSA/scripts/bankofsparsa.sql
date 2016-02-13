@@ -15,8 +15,8 @@ ALTER TABLE login ADD UNIQUE (emailAddr);
 
 -- Account Values Table
 CREATE TABLE accounts (userID int AUTO_INCREMENT,
-  accountNum int(10) unsigned,
-  accountPIN int(4),
+  accountNum varchar(10),
+  accountPIN varchar(4),
   balance numeric(16,2) default 0.0,
   primary key (userID));
 ALTER TABLE accounts ADD UNIQUE (accountNum);
@@ -44,4 +44,4 @@ INSERT INTO login (userID,name,username,password,role,emailAddr) values (
 INSERT INTO accounts (userID,accountNum,accountPIN) values (
   '0',
   FLOOR(RAND() * (9999999999 - 1000000000 + 1)) + 1000000000,
-  FLOOR(RAND() * (999999 - 100000 + 1)) + 100000);
+  FLOOR(RAND() * (9999 - 1000 + 1)) + 1000);

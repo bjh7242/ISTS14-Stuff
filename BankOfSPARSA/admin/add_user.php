@@ -84,7 +84,7 @@
 
     do {
       // create account for new user
-      $newAcctNum = rand(1000000000,9999999999);
+      $newAcctNum = LOCAL_ROUTING_NUMBER . rand(10000000,99999999);
 
       // bind new account num param
       if (!$stmt->bind_param("i", $newAcctNum)) {
@@ -121,7 +121,7 @@
     }
 
     // bind new account num param
-    if (!$stmt->bind_param("iii", $userID, $newAcctNum, $newPIN)) {
+    if (!$stmt->bind_param("iss", $userID, $newAcctNum, $newPIN)) {
       echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
     }
 

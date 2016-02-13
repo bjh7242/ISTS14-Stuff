@@ -84,8 +84,6 @@
 
   // API request paramaters, $URI, array of ARGs
   function build_api_request($uri, $args_array) {
-    //echo "BUILD API REQUEST\n";
-    //echo "ARGS ARRAY: " . print_r($args_array) ."END\n\n";
     $fields_string = "";
     $url = BANK_API_ADDRESS . ":" . BANK_API_PORT . $uri;
 
@@ -107,34 +105,51 @@
     return $result;
   }
 
+  // die if invalid session ID, else return session ID
   function get_session() {
     $fields_string = "";
+    // required parameters for /getSession
     $args = array(
       'accountNum' => API_ACCOUNT_NUM,
       'password' => API_PASSWORD
     );
     $result = build_api_request("/getSession",$args);
     $json_result = json_decode($result);
-    $sessionID = $json_result->SessionID;
-
-    return $sessionID;
+    // print error code and die if not a valid session ID
+    if (!isset($json_result->SessionID)) {
+      echo $json_result;
+      die();
+    }
+    else {
+      return $json_result->SessionID;
+    }
   }
 
   function get_fed_balance() {
-    echo "GET FED BALANCE\n";
     $sessionID = get_session();
-    echo "SESSION ID IS: " . $sessionID . "\n";
+
+    // required parameters for /getBalance
     $args  = array(
       'accountNum' => API_ACCOUNT_NUM,
       'session' => $sessionID
     );
     $result = build_api_request('/getBalance',$args);
-    echo $result;
-
+    $json_result = json_decode($result);
+    // catch error here
+    if (!isset($json_result->Balance)) {
+      echo $result;
+      die();
+    }
+    echo "Balance is: $" . number_format($json_result->Balance,2);
   }
 
   function change_fed_password() {
-    echo "CHANGE FED PASSWORD";
+    echo "<form action=\"change_fed_password.php\" method=\"post\">
+        Current Password: <input type=\"password\" name=\"current_password\" /><br />
+        New Password: <input type=\"password\" name=\"new_password\" /><br />
+        New Password Verification: <input type=\"password\" name=\"new_password2\" /><br />
+        <input type=\"submit\" value=\"submit\"><br />
+      </form>";
   }
 
   function transfer_to_bank() {
