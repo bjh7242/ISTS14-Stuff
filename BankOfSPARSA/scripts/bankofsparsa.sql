@@ -15,7 +15,7 @@ ALTER TABLE login ADD UNIQUE (emailAddr);
 
 -- Account Values Table
 CREATE TABLE accounts (userID int AUTO_INCREMENT,
-  accountNum bigint(10) unsigned,
+  accountNum int(10) unsigned,
   accountPIN int(4),
   balance numeric(16,2) default 0.0,
   primary key (userID));
@@ -23,16 +23,16 @@ ALTER TABLE accounts ADD UNIQUE (accountNum);
 
 -- Create Transactions Table
 CREATE TABLE transactions ( transactionID INT NOT NULL AUTO_INCREMENT,
-  src_routing_num BIGINT UNSIGNED NOT NULL,
+  src_routing_num varchar(2) NOT NULL,
   src_acct BIGINT UNSIGNED NOT NULL,
-  dst_routing_num BIGINT UNSIGNED NOT NULL,
+  dst_routing_num varchar(2) NOT NULL,
   dst_acct BIGINT UNSIGNED NOT NULL,
   amount numeric(16,2) NULL DEFAULT NULL,
   timestamp DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (transactionID));
 
 -- Create admin user
-INSERT INTO login (userID,name,username,password,role,emailAddr) values(
+INSERT INTO login (userID,name,username,password,role,emailAddr) values (
   '0',
   'Administrator',
   'admin',
