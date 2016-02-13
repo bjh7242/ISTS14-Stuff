@@ -1,6 +1,7 @@
 <?php
   //session_start();
   include_once('../includes/functions.inc.php');
+  include_once('../includes/config.inc.php');
 
   function get_content($page) {
       if (!isset($page)) {
@@ -52,6 +53,7 @@
         <li><a href=\"/admin/panel.php?page=change_fed_password\">Change Fed Password</a></li>
         <li><a href=\"/admin/panel.php?page=change_fed_pin\">Change Fed PIN</a></li>
         <li><a href=\"/admin/panel.php?page=transfer_to_bank\">Transfer Money to Other Bank</a></li>
+        Transfers to other banks must not exceed $5000 within a 30 minute period.
         <li><a href=\"/admin/panel.php?page=transfer_internal_funds\">Transfer Internal User Funds</a></li>
         <li><a href=\"/admin/panel.php?page=view_account_funds\">View Internal User Funds</a></li>
         <li><a href=\"/admin/panel.php?page=view_transactions\">View Transaction List</a></li>
@@ -80,8 +82,55 @@
       </form>";
   }
 
+  // API request paramaters, $URI, array of ARGs
+  function build_api_request($uri, $args_array) {
+    //echo "BUILD API REQUEST\n";
+    //echo "ARGS ARRAY: " . print_r($args_array) ."END\n\n";
+    $fields_string = "";
+    $url = BANK_API_ADDRESS . ":" . BANK_API_PORT . $uri;
+
+    foreach($args_array as $key=>$value) { $fields_string .= urlencode($key) . '=' . urlencode($value) . '&'; }
+    rtrim($fields_string, "&");
+
+    //open connection
+    $ch = curl_init();
+
+    //set the url, number of POST vars, POST data
+    curl_setopt($ch,CURLOPT_URL, $url);
+    curl_setopt($ch,CURLOPT_POST, 1);
+    curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+    //execute post
+    $result = curl_exec($ch);
+
+    return $result;
+  }
+
+  function get_session() {
+    $fields_string = "";
+    $args = array(
+      'accountNum' => API_ACCOUNT_NUM,
+      'password' => API_PASSWORD
+    );
+    $result = build_api_request("/getSession",$args);
+    $json_result = json_decode($result);
+    $sessionID = $json_result->SessionID;
+
+    return $sessionID;
+  }
+
   function get_fed_balance() {
-    echo "GET FED BALANCE";
+    echo "GET FED BALANCE\n";
+    $sessionID = get_session();
+    echo "SESSION ID IS: " . $sessionID . "\n";
+    $args  = array(
+      'accountNum' => API_ACCOUNT_NUM,
+      'session' => $sessionID
+    );
+    $result = build_api_request('/getBalance',$args);
+    echo $result;
+
   }
 
   function change_fed_password() {
