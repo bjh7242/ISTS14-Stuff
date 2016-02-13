@@ -9,7 +9,13 @@
   <?php
     print_admin_panel_header();
     echo "<body>";
-    print_admin_panel($_GET['page']);
+    if (!isset($_GET['page'])) {
+      $page = "";
+    }
+    else {
+      $page = $_GET['page'];
+    }
+    print_admin_panel($page);
     footer();
     echo "</body>";
   ?>
