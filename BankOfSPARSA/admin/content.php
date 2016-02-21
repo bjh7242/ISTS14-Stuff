@@ -1,8 +1,5 @@
 <?php
   //session_start();
-  include_once('../includes/functions.inc.php');
-  include_once('../includes/config.inc.php');
-
   function get_content($page) {
       if (!isset($page)) {
         $page = "";
@@ -36,6 +33,7 @@
   }
 
   function print_admin_panel($page) {
+	  global $domain;
       if (!isset($_SESSION['username'])) {
         $username = "";
       }
@@ -47,27 +45,23 @@
       echo "<h2>Welcome to the Admin Panel</h2>
       Add the twitter feed here to see user feedback.<br />
       <ul>
-        <li><a href=\"/admin/panel.php?page=add_user\">Add User</a></li>
-        <li><a href=\"/admin/panel.php?page=get_fed_balance\">Get Fed Balance</a></li>
+        <li><a href=\"".$domain."/admin/panel.php?page=add_user\">Add User</a></li>
+        <li><a href=\"".$domain."/admin/panel.php?page=get_fed_balance\">Get Fed Balance</a></li>
         Transfers to external accounts must not exceed the bank's balance in the fed.
-        <li><a href=\"/admin/panel.php?page=change_fed_password\">Change Fed Password</a></li>
-        <li><a href=\"/admin/panel.php?page=change_fed_pin\">Change Fed PIN</a></li>
-        <li><a href=\"/admin/panel.php?page=transfer_to_bank\">Transfer Money to Other Bank</a></li>
+        <li><a href=\"".$domain."/admin/panel.php?page=change_fed_password\">Change Fed Password</a></li>
+        <li><a href=\"".$domain."/admin/panel.php?page=change_fed_pin\">Change Fed PIN</a></li>
+        <li><a href=\"".$domain."/admin/panel.php?page=transfer_to_bank\">Transfer Money to Other Bank</a></li>
         Transfers to other banks must not exceed $5000 within a 30 minute period.
-        <li><a href=\"/admin/panel.php?page=transfer_internal_funds\">Transfer Internal User Funds</a></li>
-        <li><a href=\"/admin/panel.php?page=view_account_funds\">View Internal User Funds</a></li>
-        <li><a href=\"/admin/panel.php?page=view_transactions\">View Transaction List</a></li>
+        <li><a href=\"".$domain."/admin/panel.php?page=transfer_internal_funds\">Transfer Internal User Funds</a></li>
+        <li><a href=\"".$domain."/admin/panel.php?page=view_account_funds\">View Internal User Funds</a></li>
+        <li><a href=\"".$domain."/admin/panel.php?page=view_transactions\">View Transaction List</a></li>
       </ul>
       <div id=\"admin_content\">";
         get_content($page);
       echo "</div>\n";
   }
 
-  function print_admin_panel_header() {
-    echo "<head>
-<title>Bank of SPARSA | Admin Panel</title>
-</head>\n";
-  }
+
 
   function add_user() {
     echo "<form action=\"add_user.php\" method=\"post\">
@@ -123,6 +117,7 @@
     else {
       return $json_result->SessionID;
     }
+    
   }
 
   function get_fed_balance() {

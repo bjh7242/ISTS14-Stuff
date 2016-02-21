@@ -1,5 +1,6 @@
 <?php
-include_once("config.inc.php");
+
+
 ini_set('display_errors', 'On');
 
 function redirect($page) {
@@ -166,9 +167,5 @@ function get_last_login($username) {
   return $last_login;
 }
 
-function footer() {
-  echo "<div id=\"footer\">\n<center><br><br><a href=\"\">Locations</a> | <a href=\"\">Contact Us</a> | <a href=\"\">Help</a> | <a href=\"\">Careers</a><br>";
-  echo "&copy;2016 Bank of SPARSA</center></div>\n";
-}
 
 ?>
