@@ -8,8 +8,9 @@ TEAMNUM=sys.argv[1]
 def print_beginning():
     print """## Last changed: 2016-02-22 09:01:24 UTC
 version 15.1X49-D15.4;
-system {
-    root-authentication {
+system {{
+    host-name team{0}-firewall;""".format(TEAMNUM)
+    print """    root-authentication {
         encrypted-password "$1$vNKQ4UPn$gyDIaC0/sclRpftu8NhYg/"; ## SECRET-DATA
     }
     services {
