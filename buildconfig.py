@@ -6,7 +6,7 @@ import sys
 TEAMNUM=sys.argv[1]
 
 def print_beginning():
-    print """"## Last changed: 2016-02-22 09:01:24 UTC
+    print """## Last changed: 2016-02-22 09:01:24 UTC
 version 15.1X49-D15.4;
 system {
     root-authentication {
@@ -90,8 +90,8 @@ def set_proxy_arp():
             interface ge-0/0/0.0 {
                 address {"""
 
-    for i in range(1,255):
-        print """                    10.3.{0}.{1}""".format(TEAMNUM, i)
+    for i in range(2,255):
+        print """                    10.3.{0}.{1};""".format(TEAMNUM, i)
 
 def print_security_end():
     print """                }
