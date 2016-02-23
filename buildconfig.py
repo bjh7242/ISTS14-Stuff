@@ -70,7 +70,7 @@ security {
 
 def make_nat_rules():
     for i in range(1,255):
-        s = """                rule {0} {{
+        print """                rule {0} {{
                     match {{
                         destination-address 10.3.{1}.{2}/32;
                     }}
@@ -82,8 +82,7 @@ def make_nat_rules():
                         }}
                     }}
                 }}""".format(i, TEAMNUM, i, i)
-        #s.format(team = '1', host = i, host2 = i)
-        print s
+    print "            }"
 
 def set_proxy_arp():
     print """        }
