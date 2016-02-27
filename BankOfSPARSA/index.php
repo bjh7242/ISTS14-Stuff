@@ -5,14 +5,7 @@
 
 
 	<div id="bigContent">
-		<h1>Bank of SPARSA</h1>
-		<h2>Login</h2>
-		<form name="login" action="main/session.php" method="post">
-		Username: <input type="text" name="username" value=""><br />
-		Password: <input type="password" name="password" value="" autocomplete="off"><br />
-		<input type="submit" name="submit" value="Submit">
-		</form>
-		Forgot your password? Reset it <a href="">here</a>.
+		Welcome to the Bank of SPARSA. We are here to help you with all your banking needs. At Bank of SPARSA we offer exteremly competative lending and savings rates for all your banking needs. We want to be your bank of choice, and will do everything we can to facilitate that goal.  
 	</div>
   <?php include("$root/footer.php"); ?>
 </body>

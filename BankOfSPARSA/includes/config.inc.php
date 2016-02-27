@@ -1,5 +1,5 @@
 <?php
-$folder = "/BoS/BankOfSPARSA/";
+$folder = "/ISTS14-Stuff/BankOfSPARSA/";
 $domain = $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['SERVER_NAME'] . $folder;
 $root = realpath($_SERVER["DOCUMENT_ROOT"]) . $folder;
 // Bank API: https://github.com/csanders-git/BankOfSPARSA
