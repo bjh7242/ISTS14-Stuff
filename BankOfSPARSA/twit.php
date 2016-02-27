@@ -6,8 +6,7 @@ curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE); 
 $data = curl_exec($ch); 
 curl_close($ch);  
-//print $data;   
-libxml_use_internal_errors(FALSE);
+libxml_use_internal_errors(TRUE);
 $doc = new DOMDocument();
 $doc->loadHTML($data);
 libxml_clear_errors();
@@ -51,27 +50,27 @@ if (!is_null($elements)) {
         }
     }
 }
-//print_r($a);
 echo '<div id="tweets">';
 foreach($a as $node){
     $t = explode(chr(10),$node);
-    if(mb_strstr($t[1],'@') === False){
+    if(mb_substr($t[1],3,1) != '@'){
         array_shift ( $t );
+ 	array_shift ( $t );
     }
+    $t[1] = mb_substr($t[1],2,mb_strlen($t[1]));
     $out1 = strpos($t[2],'m');
     $out2 = strpos($t[2],'h');
     $out3 = strpos($t[2],'d');
     $out1 = $out1 + $out2 + $out3;
-    print substr($t[2],0,$out1+1);
+    $t[2] =  substr($t[2],0,$out1+1);
     echo '<div id="tweet">';
-    echo '  <div id="image"><img width=48px height=48px style="float:left;" src="https://pbs.twimg.com/profile_images/790549257/RITEMB2L_bigger.jpg"></div>';
+    echo '  <div id="image"><img width=48px height=48px style="float:left;" src="images/globe.png"></div>';
     echo '  <div style="float:left;" id="tweetText">';
         echo '<b>'.$t[0].' </b>' ;
-        echo $t[1] . ' ' .$t[2] . '<br>' ;
-        echo $t[3];
+        echo $t[1] . ' ' . $t[2] . '<br>' ;
+        echo wordwrap($t[3],50,"<br>",TRUE);
     echo '  </div><br><br>';
-    echo '</div><br><br>';
+    echo '</div><br><br><br>';
     
 }
-echo '</div><br>';
 ?>
