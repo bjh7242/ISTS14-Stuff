@@ -4,7 +4,7 @@ import random
 import time
 import sys
 
-numteams = 10
+numteams = 11
 
 try:
     while True:
