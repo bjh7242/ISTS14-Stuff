@@ -6,7 +6,7 @@
 		<div id="headerRight">
 			<div id="helpNav">
 				<ul id="topNav">
-					<li><a class="topmenu" href="index.php">Sign-In</a></li>
+					<li><a class="topmenu" href="signin.php">Sign-In</a></li>
 					<li><a class="topmenu" href="#">Locations</a></li>
 					<li><a class="topmenu" href="#">Contact Us</a></li>
 					<li><a class="topmenu" href="#">Help</a></li>

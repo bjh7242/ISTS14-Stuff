@@ -50,28 +50,35 @@ ul#topNav li:first-child:before {
 }
 
 #bigContent{	
-	padding: 25px 25px;
+	position: relative;
+	padding: 15px 15px;
 	background-color: #F7F6F4;
 	padding-bottom: 25px;
-overflow:auto
-	clear: both;
+
 }
 
 #contentText{
-	clear: both;
-	overflow: hidden;
-	width:60%;
+	width:65%;
+	padding-right: 15px
+}
+
+#contentTable{
+    table-layout: fixed;
+    width: 100%;
+
 }
 
 #twit{
-	position: relative;
-	float:right;
 	border:2px;
-	width:40%;	
-	margin-top: -140px;
-	margin-right: -20px;
+	width:100%;	
+	
 }
 
+table#topNav td {
+    border: 1px solid black;
+    overflow: hidden;
+    width: 50%;
+}
 
 #spacer{
 	position: relative;
