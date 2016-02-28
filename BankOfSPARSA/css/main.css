@@ -18,7 +18,8 @@ ul#menu li a {
 
 #headerRight{
     float: right;	
-    width: 50%;
+    width: 60%;
+    margin-top:-11%;
 }
 
 .topmenu{

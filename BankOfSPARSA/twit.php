@@ -63,12 +63,12 @@ foreach($a as $node){
     $out2 = strpos($t[2],'h');
     $out3 = strpos($t[2],'d');
     $out1 = $out1 + $out2 + $out3;
-   // $t[2] =  substr($t[2],0,$out1+1);
+    $t[2] =  substr($t[2],0,$out1+1);
     echo '<div id="tweet">';
     echo '  <div id="image"><img width=28px height=28px style="float:left;" src="images/globe.png"></div>';
     echo '  <div style="float:left;" id="tweetText">';
         echo '<b>'.$t[0].' </b><br>' ;
-        echo $t[1] . ' ' . $t[2] . '<br>' ;
+        echo '<i>' . $t[1] . ' ' . $t[2] . '</i><br>' ;
         echo wordwrap($t[3],25,"<br>",TRUE);
     echo '  </div><br><br>';
     echo '</div><br><br><br>';
