@@ -1,16 +1,14 @@
 <div id="headerContainer">
-	
 		<div id="headerLeft">
-			<div id="logo"><img src="<?php echo $domain?>images/boa_logo.gif" /></div>
+			<div id="logo"><a href="#"><img src="<?php echo $domain?>images/boa_logo.gif" /></a></div>
 		</div>
 		<div id="headerRight">
 			<div id="helpNav">
 				<ul id="topNav">
-					<li><a href="#">Sign-In</a></li>
+					<li><a href="index.php">Sign-In</a></li>
 					<li><a href="#">Locations</a></li>
 					<li><a href="#">Contact Us</a></li>
 					<li><a href="#">Help</a></li>
-					<li><a href="#">En espanol</a></li>						
 				</ul>
 			</div>
 			<div id="search"><input type="text" id="searchBar"></div>
@@ -19,8 +17,8 @@
 	<div id="topNavigation">
 		<ul id="menu">
 			<li><a href="<?php echo $domain?>index.php">Home</a></li>
-			<li><a href="/html/default.asp">Small Business</a></li>
-			<li><a href="/html/default.asp">Wealth Management</a></li>
+			<li><a href="/html/default.asp">Managment</a></li>
+			<li><a href="/html/default.asp">Services</a></li>
 			<li><a href="/html/default.asp">Business & Institutions</a></li>
 		</ul> 
 	</div>

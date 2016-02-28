@@ -8,6 +8,10 @@ function redirect($page) {
   exit();
 }
 
+function isMobile(){
+return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
+
 function get_accountNum($username) {
   $mysqli = new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
 
