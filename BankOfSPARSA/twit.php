@@ -50,10 +50,11 @@ if (!is_null($elements)) {
         }
     }
 }
-echo '<div id="tweets">';
+echo '<div id="tweets" width=30px;>';
 foreach($a as $node){
     $t = explode(chr(10),$node);
-    if(mb_substr($t[1],3,1) != '@'){
+
+    if(mb_strpos($t[1],'@') === False){
         array_shift ( $t );
  	array_shift ( $t );
     }
@@ -62,13 +63,13 @@ foreach($a as $node){
     $out2 = strpos($t[2],'h');
     $out3 = strpos($t[2],'d');
     $out1 = $out1 + $out2 + $out3;
-    $t[2] =  substr($t[2],0,$out1+1);
+   // $t[2] =  substr($t[2],0,$out1+1);
     echo '<div id="tweet">';
-    echo '  <div id="image"><img width=48px height=48px style="float:left;" src="images/globe.png"></div>';
+    echo '  <div id="image"><img width=28px height=28px style="float:left;" src="images/globe.png"></div>';
     echo '  <div style="float:left;" id="tweetText">';
-        echo '<b>'.$t[0].' </b>' ;
+        echo '<b>'.$t[0].' </b><br>' ;
         echo $t[1] . ' ' . $t[2] . '<br>' ;
-        echo wordwrap($t[3],50,"<br>",TRUE);
+        echo wordwrap($t[3],25,"<br>",TRUE);
     echo '  </div><br><br>';
     echo '</div><br><br><br>';
     

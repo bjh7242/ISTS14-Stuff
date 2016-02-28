@@ -2,34 +2,33 @@
     position:relative;
     margin-left:auto;
     margin-right:auto;
-    top: 20px;
+    top: -40px;
     width:50%;
-    background-color: #CCCCCC;
+    min-width: 650px;
 }
-#headerContainer{
-	width:100%;
-	top:50%;
-	background-color: #FFFFFF;
+ul#menu li a {
+    border-radius: 5px 5px 5px 5px;
 }
 
-#spacer{
-	position: relative;
-	height: 100px;
-}
-
+ 	
 #headerLeft{
-    position: relative;
     float: left;
-    margin: 20px 0 0 25px;
+    width: 50%;
 }
 
 #headerRight{
-    position: relative;
-    float: right;
-    margin-top: 7px;
+    float: right;	
+    width: 50%;
 }
-ul#topNav li {
-    display: inline;
+
+.topmenu{
+	cursor: auto;
+	color: #777;
+	text-decoration: none;
+}
+
+#topNav{
+	float: right;
 }
 
 ul#topNav li { 
@@ -37,6 +36,7 @@ ul#topNav li {
 }
 ul#topNav li:before { 
 	content: "|"; 
+	color: #777;
 	padding: 0 .5em; 
 }
 ul#topNav li:first-child:before { 
@@ -45,33 +45,49 @@ ul#topNav li:first-child:before {
 }
 
 #search{
+    	float: right;
+}
+
+#bigContent{	
+	padding: 25px 25px;
+	background-color: #F7F6F4;
+	padding-bottom: 25px;
+overflow:auto
+	clear: both;
+}
+
+#contentText{
+	clear: both;
+	overflow: hidden;
+	width:60%;
+}
+
+#twit{
 	position: relative;
-    float: right;
-	padding: 15px 0px;
+	float:right;
+	border:2px;
+	width:40%;	
+	margin-top: -140px;
+	margin-right: -20px;
 }
 
-#topNavigation{
-    position: relative;
 
-}
-ul#menu {
-    padding: 0;
+#spacer{
+	position: relative;
+	margin-top:100px;
+	height:100px;
+	z-index: -1;
 }
 
-ul#menu li {
+
+ul#topNav li {
     display: inline;
 }
 
-ul#menu li a {
-    background-color: #E5E2DA;
-    color: black;
-    padding: 15px 20px;
-    text-decoration: none;
-    border-radius: 5px 5px 0 0;
-}
 
-ul#menu li a:hover {
-    background-color: #F7F6F4;
+#topNavigation{
+   height: 20px;
+
 }
 #title{
     background-color: #358ADC;
@@ -82,17 +98,14 @@ ul#menu li a:hover {
 	background-color: #E5E2DA;
 }
 #titleText{
+
     color: #fff;
     line-height: 60px;
     font-size: 22px;
 	font-family: Arial,sans-serif;
 }
 
-#bigContent{
-	padding: 25px 25px;
-	background-color: #F7F6F4;
-	padding-bottom: 25px;
-}
+
 
 #separator{
 	height:10px;
