@@ -4,9 +4,8 @@
 function explode(){
 $.get("twit.php", function( data ) {
   $( "#twit" ).html( data );
-  //alert( "Load was performed." );
 });
 }
-setTimeout(explode, 5000);
+setInterval(explode, 5000);
 </script>
 <div id="twit" ><?php include("twit.php");?></div>

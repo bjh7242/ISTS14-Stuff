@@ -1,5 +1,5 @@
 <?php
-$url = "https://twitter.com/search?f=tweets&vertical=default&q=%23RIT&src=typd";
+$url = "https://twitter.com/search?f=tweets&vertical=default&q=%23SPARSAISTS&src=typd";
 $ch = curl_init();
 curl_setopt($ch  , CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_URL, $url);
@@ -51,6 +51,7 @@ if (!is_null($elements)) {
     }
 }
 echo '<div id="tweets" width=30px;>';
+$gotSomething = False;
 foreach($a as $node){
     $t = explode(chr(10),$node);
 
@@ -72,6 +73,11 @@ foreach($a as $node){
         echo wordwrap($t[3],25,"<br>",TRUE);
     echo '  </div><br><br>';
     echo '</div><br><br><br>';
-    
+    if(!empty($t[3])){
+	$gotSomething = True;
+    }
+}
+if(!$gotSomething){
+echo "Sorry no Tweets";
 }
 ?>

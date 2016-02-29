@@ -6,9 +6,9 @@
 		<div id="headerRight">
 			<div id="helpNav">
 				<ul id="topNav">
-					<li><a class="topmenu" href="signin.php">Sign-In</a></li>
-					<li><a class="topmenu" href="#">Locations</a></li>
-					<li><a class="topmenu" href="#">Contact Us</a></li>
+					<li><a class="topmenu" href="<?php echo $domain?>signin.php">Sign-In</a></li>
+					<li><a class="topmenu" href="<?php echo $domain?>locations.php">Locations</a></li>
+					<li><a class="topmenu" href="<?php echo $domain?>contact.php">Contact Us</a></li>
 					<li><a class="topmenu" href="#">Help</a></li>
 				</ul>
 			</div>
@@ -21,7 +21,7 @@
 		<div id="topNavigation" class="pure-menu pure-menu-horizontal">
 			<ul id="menu" class="pure-menu-list">
 				<li class="pure-menu-item"><a class="pure-menu-link" href="<?php echo $domain?>index.php">Home</a></li>
-				<li class="pure-menu-item"><a class="pure-menu-link" href="/html/default.asp">Managment</a></li>
+				<li class="pure-menu-item"><a class="pure-menu-link" href="<?php echo $domain?>managment.php">Managment</a></li>
 				<li class="pure-menu-item"><a class="pure-menu-link" href="/html/default.asp">Services</a></li>
 				<li class="pure-menu-item"><a class="pure-menu-link" href="/html/default.asp">Business & Institutions</a></li>
 			</ul> 

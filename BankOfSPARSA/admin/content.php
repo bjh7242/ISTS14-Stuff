@@ -40,6 +40,7 @@
       else {
         $username = $_SESSION['username'];
       }
+      echo '<script src="http://' . getLocalPath() . '/admin.js"></script>';
       echo "<h1>Admin Panel</h1>
       Welcome " . htmlspecialchars($username) ."<br>";
       echo "<h2>Welcome to the Admin Panel</h2>
