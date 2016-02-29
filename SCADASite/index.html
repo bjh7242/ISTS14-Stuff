@@ -18,17 +18,18 @@
       </div>
     </div>
 
+    <hr />
+
     <div class="row">
       <div class="large-4 medium-4 columns">
         <div class="callout">
-          <h5>So many components, girl!</h5>
-          <p>A whole kitchen sink of goodies comes with Foundation. Check out the docs to see them all, along with details on making them your own.</p>
-          <a href="http://foundation.zurb.com/docs/" class="small button">Go to Foundation Docs</a>
+          <h5>Team Datacenter Temperatures</h5>
+          <p>To the right, you will find the current reading from the Modbus temperature sensors. The temperature sensors are polled every five seconds and the reading is stored on this server. If a temperature reads over 80&deg;F, the datacenter will be powered off to prevent hosts from overheating. If this server is unable to poll the temperature sensor, after several missed checks, the datacenter will be powered off to prevent other devices from malfunctioning.</p>
         </div>
       </div>
 
       <div class="large-8 medium-8 columns">
-        <h5>Team Datacenter Temperature Overview:</h5>
+        <h5>Temperature Overview:</h5>
         <div class="row">
           <div class="large-4 columns">
             <div id="t1box" class="callout ">
@@ -148,9 +149,13 @@
             </div>
           </div>
         </div>
-        <hr />
       </div>
     </div>
+
+    <hr />
+    <center>
+      <p id="footer">&copy; 2016 SPARSA</p>
+    </center>
 
     <script src="js/vendor/jquery.min.js"></script>
     <script src="js/vendor/what-input.min.js"></script>

@@ -7,12 +7,22 @@ function loadDoc(url, teamID, teamDivID) {
   xhttp=new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
-      document.getElementById(teamID).innerHTML = xhttp.responseText + "&deg;F";
+      //document.getElementById(teamID).innerHTML = xhttp.responseText + "&deg;F";
       var div = document.getElementById(teamDivID);
-      if (xhttp.responseText > 70) {
+      if (xhttp.responseText.trim() === 'NULL') {
+        document.getElementById(teamID).innerHTML = "Unable to connect to sensor...";
+        div.style.backgroundColor="orange";
+      }
+      else if (xhttp.responseText.trim() === 'OFF') {
+        document.getElementById(teamID).innerHTML = "Powered Off.";
+        div.style.backgroundColor="gray";
+      }
+      else if (xhttp.responseText > 70) {
+        document.getElementById(teamID).innerHTML = xhttp.responseText + "&deg;F";
         div.style.backgroundColor="red";
       }
       else {
+        document.getElementById(teamID).innerHTML = xhttp.responseText + "&deg;F";
         div.style.backgroundColor="green";
       }
     }
