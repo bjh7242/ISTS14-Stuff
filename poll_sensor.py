@@ -9,8 +9,8 @@ import random
 import time
 
 # NUM_MISSED_CHECKS is a constant that defines the number of missed checks before VMs are powered off
-NUM_MISSED_CHECKS = 10
-temperature_dir = '/var/www/html/ISTS14-Stuff/SCADASite/'
+NUM_MISSED_CHECKS = 2
+temperature_dir = 'C:\\xampp\\htdocs\\'
 
 class sensor():
     def __init__(self, team, addr, temp):
@@ -20,7 +20,6 @@ class sensor():
         self.temp = self.get_temp(self.addr)
         self.sleeping = False
         self.timeout = 0
-        #time.sleep(5)
 
     def get_temp(self, addr):
         # connect to modbus slave
@@ -32,30 +31,35 @@ class sensor():
             return temp
         except:
             # if unable to connect, return None
+            log_stuff("Unable to connect to " + self.addr)
             return None
 
-def poweroff_team(teamsensor):
-    #if (teamsensor.timeout > time.time()):
-    print "TEAM " + teamsensor.team + " set to " + str(missed_checks[teamsensor.team]) + " checks."
-    print "POWERING OFF TEAM " + str(teamsensor.team)
-    missed_checks[teamsensor.team] = 0
-    print "missed_checks[teamsensor.team] = " + str(missed_checks[teamsensor.team])
+def log_stuff(message):
+    print "About to log stuff."
+    with open('scada.log','a+') as f:
+        now = time.strftime("%c")
+        f.write(now + " - " + message + "\n")
 
-    print "missed checks now set to " + str(missed_checks[teamsensor.team])
-    now = time.time()
-    teamsensor.timeout = now + 3600
-    print "now = " + str(now)
+
+def poweroff_team(teamsensor):
+    #log_stuff("Team " + teamsensor.team + " set to " + str(missed_checks[teamsensor.team]) + " checks.")
+    log_stuff("POWERING OFF TEAM " + str(teamsensor.team))
+    missed_checks[teamsensor.team] = 0
+    # call poweroff script here
+    time.sleep(3600)
 
 def check_missed_check(teamsensor):
     """
     Check to see when the poweroff log says the last missed check was
     """
-    print "TEAM " + str(teamsensor.team) + " missed last checks " + str(missed_checks[teamsensor.team]) + " times!"
     if missed_checks[teamsensor.team] > NUM_MISSED_CHECKS:
         #print "POWERING OFF TEAM " + str(teamsensor.team)
+        with open(temperature_dir + teamsensor.filename,'w') as f:
+            f.write('OFF')
         poweroff_team(teamsensor)
     else:
         missed_checks[teamsensor.team] += 1
+        log_stuff("Team " + str(teamsensor.team) + " missed " + str(missed_checks[teamsensor.team]) + " checks in a row!")
 
 def main():
     while True:
@@ -63,22 +67,23 @@ def main():
         # log temperature value reading to a file
         with open(temperature_dir + sensor_obj.filename,'w') as f:
             if (sensor_obj.temp != None and sensor_obj.temp <= 85):
-                print "SETTING TEAM NUMBER: " + str(sensor_obj.team) + " TO " + str(sensor_obj.temp) + " in " + str(sensor_obj.filename)
+                log_stuff("Setting team number " + str(sensor_obj.team) + " temperature to " + str(sensor_obj.temp) + " in " + str(sensor_obj.filename))
                 f.write(str(sensor_obj.temp))
                 # reset the missed checks counter
                 missed_checks[sensor_obj.team] = 0
             elif (sensor_obj.temp != None and sensor_obj.temp > 85):
                 # write out "OFF" to team's file if the team is above 85 degrees
-                print "SETTING TEAM NUMBER: " + str(sensor_obj.team) + " TO OFF in " + str(sensor_obj.filename)
+                log_stuff("Team " + str(sensor_obj.team) + " is about to be powered off. Temp reads: " + str(sensor_obj.temp))
+                #print "SETTING TEAM NUMBER: " + str(sensor_obj.team) + " TO OFF in " + str(sensor_obj.filename)
                 f.write("OFF")
                 poweroff_team(sensor_obj)
             else:
                 # write out "NULL" to team's file if unable to connect
-                print "SETTING TEAM NUMBER: " + str(sensor_obj.team) + " TO NULL in " + str(sensor_obj.filename)
+                #print "SETTING TEAM NUMBER: " + str(sensor_obj.team) + " TO NULL in " + str(sensor_obj.filename)
                 f.write("NULL")
                 check_missed_check(sensor_obj)
             f.close
-        time.sleep(5)
+        time.sleep(10)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Poll the temerature sensor of a given team.')
