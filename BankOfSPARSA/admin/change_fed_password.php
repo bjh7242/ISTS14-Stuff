@@ -1,19 +1,20 @@
 <?php
   include_once('content.php');
-  include_once('../includes/config.inc.php');
+  include_once('../includes.php');
 
   function change_password($newPassword) {
-    $session = get_session();
-    if (!isset($session->SessionID)) {
-      echo $session;
+    $sessionID = get_session();
+    echo "SESSION ID IS: " . htmlspecialchars($sessionID) . "\n";
+    if (!isset($sessionID)) {
+      echo "sessionID is not set?";
+      echo htmlspecialchars($sessionID);
       die();
     }
     else {
-      $sessionID = $session->SessionID;
+      //$sessionID = $session->SessionID;
       // required parameters for /changePassword
       $args  = array(
         'accountNum' => API_ACCOUNT_NUM,
-        'password' => API_PASSWORD,
         'session' => $sessionID,
         'newPassword' => $newPassword
       );
@@ -26,6 +27,7 @@
       $json_result = json_decode($result);
       // if there is an error, $json_result->Status will return 'False'
       if (!isset($json_result->Status)) {
+        echo "password change worked.";
         echo $json_result;
       }
       else {

@@ -1,6 +1,5 @@
 <?php
 	include_once("../includes.php");
-	session_start();
 	include("$root/admin/content.php");
 	$title="Login";
 	include("$root/header.php");
