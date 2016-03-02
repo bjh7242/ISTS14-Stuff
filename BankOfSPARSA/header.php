@@ -10,10 +10,11 @@
 			<div id="helpNav">
 				<ul id="topNav">
 					<?php
+                        $pagename = basename($_SERVER["SCRIPT_FILENAME"]);
 						// determine whether user is logged in or not and print the appropriate session page (sign in or out)
-					  if (isset($_SESSION['role'])) {
+					  if (isset($_SESSION['role']) && $pagename != "signout.php") {
 							echo '<li><a class="topmenu" href="' . $domain . 'signout.php">Sign-Out</a></li>';
-						}
+                        }
 						else {
 							echo '<li><a class="topmenu" href="' . $domain . 'signin.php">Sign-In</a></li>';
 						}
