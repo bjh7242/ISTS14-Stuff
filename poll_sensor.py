@@ -15,7 +15,7 @@ temperature_dir = '/var/www/html/ISTS14-Stuff/SCADASite/'
 class sensor():
     def __init__(self, team, addr, temp):
         self.team = team
-        self.filename = str(team) + "-config.txt"
+        self.filename = str(team) + "-temp.txt"
         self.addr = addr
         self.temp = self.get_temp(self.addr)
         self.sleeping = False
@@ -62,13 +62,13 @@ def main():
         sensor_obj = sensor(args.team, args.address, 0)
         # log temperature value reading to a file
         with open(temperature_dir + sensor_obj.filename,'w') as f:
-            if (sensor_obj.temp != None and sensor_obj.temp <= 80):
+            if (sensor_obj.temp != None and sensor_obj.temp <= 85):
                 print "SETTING TEAM NUMBER: " + str(sensor_obj.team) + " TO " + str(sensor_obj.temp) + " in " + str(sensor_obj.filename)
                 f.write(str(sensor_obj.temp))
                 # reset the missed checks counter
                 missed_checks[sensor_obj.team] = 0
-            elif (sensor_obj.temp != None and sensor_obj.temp > 80):
-                # write out "OFF" to team's file if the team is above 80 degrees
+            elif (sensor_obj.temp != None and sensor_obj.temp > 85):
+                # write out "OFF" to team's file if the team is above 85 degrees
                 print "SETTING TEAM NUMBER: " + str(sensor_obj.team) + " TO OFF in " + str(sensor_obj.filename)
                 f.write("OFF")
                 poweroff_team(sensor_obj)
