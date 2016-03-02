@@ -52,15 +52,15 @@
       echo '<script src="http://' . getLocalPath() . '/admin.js"></script>';
       echo "<h1>Admin Panel</h1>
       Welcome " . htmlspecialchars($username) ."<br>";
+      echo "Your balance is: $" . get_fed_balance();
       echo "<h2>Welcome to the Admin Panel</h2>
       Add the twitter feed here to see user feedback.<br />
       <ul>
         <li><a href=\"".$domain."admin/panel.php?page=add_user\">Add User</a></li>
-        <li><a href=\"".$domain."admin/panel.php?page=get_fed_balance\">Get Fed Balance</a></li>
-        Transfers to external accounts must not exceed the bank's balance in the fed.
         <li><a href=\"".$domain."admin/panel.php?page=change_fed_password\">Change Fed Password</a></li>
         <li><a href=\"".$domain."admin/panel.php?page=change_fed_pin\">Change Fed PIN</a></li>
         <li><a href=\"".$domain."admin/panel.php?page=transfer_to_bank\">Transfer Money to Other Bank</a></li>
+        Transfers to external accounts must not exceed the bank's balance in the fed.
         Transfers to other banks must not exceed $5000 within a 30 minute period.
         <li><a href=\"".$domain."admin/panel.php?page=transfer_internal_funds\">Transfer Internal User Funds</a></li>
         <li><a href=\"".$domain."admin/panel.php?page=view_account_funds\">View Internal User Funds</a></li>
@@ -147,7 +147,7 @@
       echo $result;
       die();
     }
-    echo "Balance is: $" . number_format($json_result->Balance,2);
+    return number_format($json_result->Balance,2);
   }
 
   // required = ["accountNum","session","newPin"]
@@ -262,8 +262,8 @@
     		$.post( "getFile.php", { file: $("#file").val() }, function( data ) {
     		  $( "#code" ).html( data );
     		});
-    
-    	});	
+
+    	});
     });
     </script>
     ';
