@@ -12,6 +12,9 @@
         case 'get_fed_balance':
           get_fed_balance();
           break;
+        case 'change_fed_pin':
+          change_fed_pin();
+          break;
         case 'change_fed_password':
           change_fed_password();
           break;
@@ -27,8 +30,8 @@
         case 'view_transactions':
           view_transactions();
           break;
-	case 'change_page':
-	  change_page();
+        case 'pay_bill':
+          pay_bill();
           break;
         default:
           echo "Please Select Choice.";
@@ -49,17 +52,17 @@
       echo "<h2>Welcome to the Admin Panel</h2>
       Add the twitter feed here to see user feedback.<br />
       <ul>
-        <li><a href=\"".$domain."/admin/panel.php?page=add_user\">Add User</a></li>
-        <li><a href=\"".$domain."/admin/panel.php?page=get_fed_balance\">Get Fed Balance</a></li>
+        <li><a href=\"".$domain."admin/panel.php?page=add_user\">Add User</a></li>
+        <li><a href=\"".$domain."admin/panel.php?page=get_fed_balance\">Get Fed Balance</a></li>
         Transfers to external accounts must not exceed the bank's balance in the fed.
-        <li><a href=\"".$domain."/admin/panel.php?page=change_fed_password\">Change Fed Password</a></li>
-        <li><a href=\"".$domain."/admin/panel.php?page=change_fed_pin\">Change Fed PIN</a></li>
-        <li><a href=\"".$domain."/admin/panel.php?page=transfer_to_bank\">Transfer Money to Other Bank</a></li>
+        <li><a href=\"".$domain."admin/panel.php?page=change_fed_password\">Change Fed Password</a></li>
+        <li><a href=\"".$domain."admin/panel.php?page=change_fed_pin\">Change Fed PIN</a></li>
+        <li><a href=\"".$domain."admin/panel.php?page=transfer_to_bank\">Transfer Money to Other Bank</a></li>
         Transfers to other banks must not exceed $5000 within a 30 minute period.
-        <li><a href=\"".$domain."/admin/panel.php?page=transfer_internal_funds\">Transfer Internal User Funds</a></li>
-        <li><a href=\"".$domain."/admin/panel.php?page=view_account_funds\">View Internal User Funds</a></li>
-        <li><a href=\"".$domain."/admin/panel.php?page=view_transactions\">View Transaction List</a></li>
-        <li><a href=\"".$domain."/admin/panel.php?page=change_page\">Modify Page</a></li>
+        <li><a href=\"".$domain."admin/panel.php?page=transfer_internal_funds\">Transfer Internal User Funds</a></li>
+        <li><a href=\"".$domain."admin/panel.php?page=view_account_funds\">View Internal User Funds</a></li>
+        <li><a href=\"".$domain."admin/panel.php?page=view_transactions\">View Transaction List</a></li>
+        <li><a href=\"".$domain."admin/panel.php?page=pay_bill\">Pay Bill</a></li>
       </ul>
       <div id=\"admin_content\">";
         get_content($page);
@@ -69,16 +72,16 @@
 
 
   function add_user() {
-    echo "<form action=\"add_user.php\" method=\"post\">
-        Name: <input type=\"text\" name=\"name\" /><br />
-        Username: <input type=\"text\" name=\"username\" /><br />
-        Email Address: <input type=\"text\" name=\"emailAddr\" /><br />
-        Password: <input type=\"password\" name=\"password\" /><br />
+    echo '<form action="add_user.php" method="post">
+        Name: <input type="text" name="name" /><br />
+        Username: <input type="text" name="username" /><br />
+        Email Address: <input type="text" name="emailAddr" /><br />
+        Password: <input type="password" name="password" /><br />
         Role: <br />
-        admin <input type=\"radio\" name=\"role\" value=\"admin\">
-        user <input type=\"radio\" name=\"role\" value=\"user\" checked><br />
-        <input type=\"submit\" value=\"submit\"><br />
-      </form>";
+        admin <input type="radio" name="role" value="admin">
+        user <input type="radio" name="role" value="user" checked><br />
+        <input type="submit" value="submit"><br />
+      </form>';
   }
 
   // API request paramaters, $URI, array of ARGs
@@ -122,7 +125,7 @@
     else {
       return $json_result->SessionID;
     }
-    
+
   }
 
   function get_fed_balance() {
@@ -143,28 +146,41 @@
     echo "Balance is: $" . number_format($json_result->Balance,2);
   }
 
+  // required = ["accountNum","session","newPin"]
+  function change_fed_pin() {
+    echo "Please enter a new 4 digit PIN:\n";
+    echo '<form action="new_pin.php" method="post">
+        Old PIN: <input type="text" name="old_pin" value=""/><br />
+        New PIN: <input type="text" name="new_pin" value=""/><br />
+        <input type="submit" value="submit"><br />
+      </form>';
+  }
+
   function change_fed_password() {
-    echo "<form action=\"change_fed_password.php\" method=\"post\">
-        Current Password: <input type=\"password\" name=\"current_password\" /><br />
-        New Password: <input type=\"password\" name=\"new_password\" /><br />
-        New Password Verification: <input type=\"password\" name=\"new_password2\" /><br />
-        <input type=\"submit\" value=\"submit\"><br />
-      </form>";
+    echo '<form action="change_fed_password.php" method="post">
+        Current Password: <input type="password" name="current_password" /><br />
+        New Password: <input type="password" name="new_password" /><br />
+        New Password Verification: <input type="password" name="new_password2" /><br />
+        <input type="submit" value="submit"><br />
+      </form>';
   }
 
   function transfer_to_bank() {
-    echo "TRANSFER TO BANK";
+    echo '<form name="transfer" action="transfer_money.php" method="post">
+      Destination Account Number: <input type="text" name="destAccount" value=""><br>
+      Amount: <input type="text" name="amount" value=""><br>
+      <input type="hidden" name="whiteteam" value="false">
+      <input type="submit" name="submit" value="Submit">
+    </form>';
   }
 
   function transfer_internal_funds() {
-    echo "<form name=\"transfer\" action=\"admin_transfer.php\" method=\"post\">
-      Source Account Number: <input type=\"text\" name=\"src_acct\" value=\"\"><br>
-      Destination Account Number: <input type=\"text\" name=\"dst_acct\" value=\"\"><br>
-      Amount: <input type=\"text\" name=\"amount\" value=\"\"><br>
-      <input type=\"submit\" name=\"submit\" value=\"Submit\">
-    </form>";
-
-    echo "TRANSFER INTERNAL FUNDS";
+    echo '<form name="transfer" action="admin_transfer.php" method="post">
+      Source Account Number: <input type="text" name="src_acct" value=""><br>
+      Destination Account Number: <input type="text" name="dst_acct" value=""><br>
+      Amount: <input type="text" name="amount" value=""><br>
+      <input type="submit" name="submit" value="Submit">
+    </form>';
   }
 
   function view_account_funds() {
@@ -210,7 +226,7 @@
     // bind the results of the query to each field
     $stmt->bind_result($transactionID,$src_routing_num,$src_acct,$dst_routing_num,$dst_acct,$amount,$timestamp);
 
-    echo "<table  border=\"1\">";
+    echo "<table border=\"1\">";
     echo "<tr>\n<td>Transaction ID</td>\n<td>Source Routing Number</td>\n<td>Source Account Number</td>\n<td>Destination Routing Number</td>\n<td>Destination Account Number</td>\n<td>Amount</td>\n<td>Timestamp</td>\n</tr>";
     // print the results
     while ($stmt->fetch()) {
@@ -223,35 +239,12 @@
     $mysqli->close();
   }
 
-
-function change_page() {
-echo '
-<script>
-$( document ).ready(function() {
-		$.post( "getFile.php", { file: $("#file").val() }, function( data ) {
-		  $( "#code" ).html( data );
-		});
-	$( "#file" ).change(function() {
-		$.post( "getFile.php", { file: $("#file").val() }, function( data ) {
-		  $( "#code" ).html( data );
-		});
-
-	});	
-});
-</script>
-';
-echo 'Select the page you wish to edit: <br><br><form class="pure-form"><select id="file">';
-    $path = substr(getcwd(),0,strrpos(getcwd(),'/'));
-    $path = scandir($path);
-    for($x = 0; $x < sizeof($path); $x++){
-    	if(substr($path[$x], -3) == "php"){
- 		echo "<option value='$x'>$path[$x]</option>";
-	}
-    }
-    echo '
-	</select></form><div id="code"></div>
-	';
+  function pay_bill() {
+    echo '<form name="transfer" action="transfer_money.php" method="post">
+      Amount: <input type="text" name="amount" value=""><br>
+      <input type="hidden" name="whiteteam" value="true">
+      <input type="submit" name="submit" value="Submit">
+    </form>';
   }
-
 
 ?>
