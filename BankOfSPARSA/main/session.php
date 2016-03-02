@@ -12,16 +12,16 @@
 		$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if(!empty($_POST['username']) and !empty($_POST['password'])) {
   		// prepare select statement
-		// Make sure we don't use empty vars
-		if(!isset($username) && !isset($password)){
-		    // Set these up to be our prepared vals
-		    $username = '?';
-		    $password = '?';
-		}
+  		// Make sure we don't use empty vars
+  		if(!isset($username) && !isset($password)){
+  		    // Set these up to be our prepared vals
+  		    $username = '?';
+  		    $password = '?';
+  		}
 
-        if (!($stmt = $mysqli->prepare("SELECT userID,name,username,password,role,emailAddr FROM login WHERE username = $username AND password = $password"))) {
-          echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-        }
+      if (!($stmt = $mysqli->prepare("SELECT userID,name,username,password,role,emailAddr FROM login WHERE username = $username AND password = $password"))) {
+        echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+      }
   		// username and password are both strings (first param in bind_param)
   		@$stmt->bind_param("ss", $_POST['username'], sha1($_POST['password']));
   		if (!$stmt->execute()) {
