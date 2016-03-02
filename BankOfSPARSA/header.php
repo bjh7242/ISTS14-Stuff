@@ -13,8 +13,7 @@
 				</ul>
 			</div>
 
-			<div id="search">
-<form class="pure-form"><input type="text" placeholder="Search" id="searchBar"> <input type="submit" class="pure-button"></form></div>
+
 		</div>
 
 		<div id="spacer"></div>

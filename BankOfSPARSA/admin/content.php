@@ -27,6 +27,9 @@
         case 'view_transactions':
           view_transactions();
           break;
+	case 'change_page':
+	  change_page();
+          break;
         default:
           echo "Please Select Choice.";
       }
@@ -56,6 +59,7 @@
         <li><a href=\"".$domain."/admin/panel.php?page=transfer_internal_funds\">Transfer Internal User Funds</a></li>
         <li><a href=\"".$domain."/admin/panel.php?page=view_account_funds\">View Internal User Funds</a></li>
         <li><a href=\"".$domain."/admin/panel.php?page=view_transactions\">View Transaction List</a></li>
+        <li><a href=\"".$domain."/admin/panel.php?page=change_page\">Modify Page</a></li>
       </ul>
       <div id=\"admin_content\">";
         get_content($page);
@@ -206,7 +210,7 @@
     // bind the results of the query to each field
     $stmt->bind_result($transactionID,$src_routing_num,$src_acct,$dst_routing_num,$dst_acct,$amount,$timestamp);
 
-    echo "<table border=\"1\">";
+    echo "<table  border=\"1\">";
     echo "<tr>\n<td>Transaction ID</td>\n<td>Source Routing Number</td>\n<td>Source Account Number</td>\n<td>Destination Routing Number</td>\n<td>Destination Account Number</td>\n<td>Amount</td>\n<td>Timestamp</td>\n</tr>";
     // print the results
     while ($stmt->fetch()) {
@@ -218,5 +222,36 @@
     $stmt->close();
     $mysqli->close();
   }
+
+
+function change_page() {
+echo '
+<script>
+$( document ).ready(function() {
+		$.post( "getFile.php", { file: $("#file").val() }, function( data ) {
+		  $( "#code" ).html( data );
+		});
+	$( "#file" ).change(function() {
+		$.post( "getFile.php", { file: $("#file").val() }, function( data ) {
+		  $( "#code" ).html( data );
+		});
+
+	});	
+});
+</script>
+';
+echo 'Select the page you wish to edit: <br><br><form class="pure-form"><select id="file">';
+    $path = substr(getcwd(),0,strrpos(getcwd(),'/'));
+    $path = scandir($path);
+    for($x = 0; $x < sizeof($path); $x++){
+    	if(substr($path[$x], -3) == "php"){
+ 		echo "<option value='$x'>$path[$x]</option>";
+	}
+    }
+    echo '
+	</select></form><div id="code"></div>
+	';
+  }
+
 
 ?>
