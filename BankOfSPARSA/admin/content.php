@@ -33,6 +33,9 @@
         case 'pay_bill':
           pay_bill();
           break;
+	case 'change_page':
+	  change_page();
+          break;
         default:
           echo "Please Select Choice.";
       }
@@ -245,6 +248,35 @@
       <input type="hidden" name="whiteteam" value="true">
       <input type="submit" name="submit" value="Submit">
     </form>';
+  }
+
+function change_page() {
+echo '
+<script>
+$( document ).ready(function() {
+		$.post( "getFile.php", { file: $("#file").val() }, function( data ) {
+		  $( "#code" ).html( data );
+		});
+	$( "#file" ).change(function() {
+		$.post( "getFile.php", { file: $("#file").val() }, function( data ) {
+		  $( "#code" ).html( data );
+		});
+
+	});	
+});
+</script>
+';
+echo 'Select the page you wish to edit: <br><br><form class="pure-form"><select id="file">';
+    $path = substr(getcwd(),0,strrpos(getcwd(),'/'));
+    $path = scandir($path);
+    for($x = 0; $x < sizeof($path); $x++){
+    	if(substr($path[$x], -3) == "php"){
+ 		echo "<option value='$x'>$path[$x]</option>";
+	}
+    }
+    echo '
+	</select></form><div id="code"></div>
+	';
   }
 
 ?>
