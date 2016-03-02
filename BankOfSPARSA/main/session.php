@@ -15,7 +15,7 @@
 		}
 
 		// username and password are both strings (first param in bind_param)
-		if (!$stmt->bind_param("ss", $_POST['username'], $_POST['password'])) {
+		if (!$stmt->bind_param("ss", $_POST['username'], sha1($_POST['password']))) {
 		  echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 		}
 
