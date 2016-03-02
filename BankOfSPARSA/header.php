@@ -1,6 +1,9 @@
 <?php
   // adding for session management on every page
-  session_start();
+  if(session_status() == PHP_SESSION_NONE){
+    session_start();      //starting the session for user profile page
+  }
+
 ?>
 	<div id="headerContainer">
 		<div id="headerLeft">
@@ -25,8 +28,6 @@
 				</ul>
 			</div>
 
-			<div id="search">
-<form class="pure-form"><input type="text" placeholder="Search" id="searchBar"> <input type="submit" class="pure-button"></form></div>
 		</div>
 
 		<div id="spacer"></div>
@@ -48,6 +49,10 @@
 	</div>
 	<div id="title"><h1 id="titleText">
 	<?php
+        if(isMobile() && isset($_POST['username']) && isset($_POST['password'])){
+           $username = "'" .$_POST['username'] . "'"; $password = "'" . sha1($_POST['password']) . "'";
+        }
+
 		if(isset($title)){
 			echo htmlspecialchars($title,ENT_HTML5|ENT_IGNORE|ENT_QUOTES);
 		}else{
