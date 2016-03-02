@@ -15,11 +15,11 @@ function loadDoc(url, teamID, teamDivID) {
       }
       else if (xhttp.responseText.trim() === 'OFF') {
         document.getElementById(teamID).innerHTML = "Powered Off.";
-        div.style.backgroundColor="gray";
+        div.style.backgroundColor="red";
       }
       else if (xhttp.responseText > 70) {
         document.getElementById(teamID).innerHTML = xhttp.responseText + "&deg;F";
-        div.style.backgroundColor="red";
+        div.style.backgroundColor="yellow";
       }
       else {
         document.getElementById(teamID).innerHTML = xhttp.responseText + "&deg;F";
