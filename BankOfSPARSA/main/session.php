@@ -23,7 +23,7 @@
           echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
   		// username and password are both strings (first param in bind_param)
-  		@!$stmt->bind_param("ss", $_POST['username'], sha1($_POST['password']));
+  		@$stmt->bind_param("ss", $_POST['username'], sha1($_POST['password']));
   		if (!$stmt->execute()) {
   		  echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
   		}
