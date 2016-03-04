@@ -1,14 +1,21 @@
 <?php
-  session_start();
+  //die( 'i am here');
+  include("../includes.php");
+  include("$root/admin/content.php");
+  $title="Login";
+  include("$root/header.php");
+  //echo "test";
+
+
+
+  //session_start();
   $root = realpath($_SERVER["DOCUMENT_ROOT"]);
-  //include('$root/includes/functions.inc.php');
-  include_once("$root/includes/config.inc.php");
 
   if (isset($_POST['name']) && isset($_POST['username']) && isset($_POST['password']) && isset($_POST['emailAddr']) && isset($_POST['role'])) {
     // check to make sure the email address is a valid formatted one
     if (!filter_var($_POST['emailAddr'], FILTER_VALIDATE_EMAIL)) {
       echo "Invalid Email Address Format.";
-      die();
+      die("ERROR VARIABLES NOT SET.");
     }
 
     // connect to DB
@@ -34,7 +41,7 @@
     $result = $stmt->store_result();
     if ($stmt->num_rows() !== 0) {
       echo "Username or Email Address Already exists.";
-      die();
+      die("HI2");
     }
     $stmt->close();
 
@@ -45,7 +52,7 @@
     }
 
     // bind username and emailAddr params
-    if (!$stmt->bind_param("sssss", $_POST['name'], $_POST['username'], $_POST['password'], $_POST['emailAddr'], $_POST['role'])) {
+    if (!$stmt->bind_param("sssss", $_POST['name'], $_POST['username'], sha1($_POST['password']), $_POST['emailAddr'], $_POST['role'])) {
       echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
     }
 
@@ -111,8 +118,10 @@
         $stmt->close();
       }
     } while (true);
+/*
     echo "New Acct Number: " . $newAcctNum . "<br />";
     echo "New PIN: " . $newPIN;
+*/
 
     // insert new account info into the DB
     // prepare insert statement
@@ -129,9 +138,16 @@
       echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
     }
 
+    $mysqli->close();
   }
   else {
     echo "Vars not set :(";
   }
-  $mysqli->close();
+
+  echo '<div id="bigContent">';
+  echo 'New Acct Number: ' . $newAcctNum . '<br />';
+  echo 'New PIN: ' . $newPIN;
+  echo '</div>';
+  include("$root/footer.php");
+
 ?>
