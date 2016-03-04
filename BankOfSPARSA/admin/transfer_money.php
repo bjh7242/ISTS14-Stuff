@@ -2,6 +2,17 @@
   include_once('content.php');
   include_once('../includes.php');
 
+	// if not logged in as admin or no valid session exists, don't load the page
+	if (isset($_SESSION['role']) and $_SESSION['role'] != 'admin' or !isset($_SESSION['role'])) {
+    $title = "Unauthorized";
+    include("$root/header.php");
+		echo '<div id="bigContent">';
+		echo "Unauthorized Request.";
+		echo '</div>';
+		include("$root/footer.php");
+		die();
+	}
+
   $amount = $_POST['amount'];
   //$destAccount = $_POST['destAccount'];
   if ($_POST['whiteteam'] === "true") {

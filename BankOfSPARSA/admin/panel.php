@@ -1,10 +1,11 @@
 <?php
 	include_once("../includes.php");
 	include("$root/admin/content.php");
-	$title="Login";
+	$title="Admin Panel";
 	include("$root/header.php");
 	// if not logged in as admin or no valid session exists, don't load the page
 	if (isset($_SESSION['role']) and $_SESSION['role'] != 'admin' or !isset($_SESSION['role'])) {
+		$title = "Unauthorized Request";
 		echo '<div id="bigContent">';
 		echo "Unauthorized.";
 		echo '</div>';
