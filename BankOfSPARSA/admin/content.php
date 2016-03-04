@@ -32,6 +32,8 @@
           break;
         case 'pay_bill':
           pay_bill();
+        case 'change_local_password':
+          change_local_password();
           break;
 	case 'change_page':
 	  change_page();
@@ -53,6 +55,7 @@
       echo "<h1>Admin Panel</h1>
       Welcome " . htmlspecialchars($username) ."<br>";
       echo "Your balance is: $" . get_fed_balance();
+      //<li><a href=\"".$domain."admin/panel.php?page=transfer_internal_funds\">Transfer Internal User Funds</a></li>
       echo "<h2>Welcome to the Admin Panel</h2>
       Add the twitter feed here to see user feedback.<br />
       <ul>
@@ -62,11 +65,11 @@
         <li><a href=\"".$domain."admin/panel.php?page=transfer_to_bank\">Transfer Money to Other Bank</a></li>
         Transfers to external accounts must not exceed the bank's balance in the fed.
         Transfers to other banks must not exceed $5000 within a 30 minute period.
-        <li><a href=\"".$domain."admin/panel.php?page=transfer_internal_funds\">Transfer Internal User Funds</a></li>
         <li><a href=\"".$domain."admin/panel.php?page=view_account_funds\">View Internal User Funds</a></li>
         <li><a href=\"".$domain."admin/panel.php?page=view_transactions\">View Transaction List</a></li>
         <li><a href=\"".$domain."admin/panel.php?page=pay_bill\">Pay Bill</a></li>
         <li><a href=\"".$domain."admin/panel.php?page=change_page\">Modify Page</a></li>
+        <li><a href=\"".$domain."admin/panel.php?page=change_local_password\">Change My Local Password</a></li>
       </ul>
       <div id=\"admin_content\">";
         get_content($page);
@@ -246,6 +249,16 @@
   function pay_bill() {
     echo '<form name="transfer" action="transfer_money.php" method="post">
       Amount: <input type="text" name="amount" value=""><br>
+      <input type="hidden" name="whiteteam" value="true">
+      <input type="submit" name="submit" value="Submit">
+    </form>';
+  }
+
+  function change_local_password() {
+    echo "Enter your password and a new password below.";
+    echo '<form name="transfer" action="change_local_password.php" method="post">
+      Current Password: <input type="password" name="oldpass" value=""><br>
+      New Password: <input type="password" name="newpass" value=""><br>
       <input type="hidden" name="whiteteam" value="true">
       <input type="submit" name="submit" value="Submit">
     </form>';
