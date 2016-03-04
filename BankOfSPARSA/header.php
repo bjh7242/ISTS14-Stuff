@@ -24,7 +24,7 @@
 					?>
 					<li><a class="topmenu" href="<?php echo $domain?>locations.php">Locations</a></li>
 					<li><a class="topmenu" href="<?php echo $domain?>contact.php">Contact Us</a></li>
-					<li><a class="topmenu" href="#">Help</a></li>
+					<li><a class="topmenu" href="<?php echo $domain?>help.php">Help</a></li>
 				</ul>
 			</div>
 
@@ -42,8 +42,8 @@
 					}
 				?>
 				<li class="pure-menu-item"><a class="pure-menu-link" href="<?php echo $domain?>managment.php">Managment</a></li>
-				<li class="pure-menu-item"><a class="pure-menu-link" href="/html/default.asp">Services</a></li>
-				<li class="pure-menu-item"><a class="pure-menu-link" href="/html/default.asp">Business &amp; Institutions</a></li>
+				<li class="pure-menu-item"><a class="pure-menu-link" href="<?php echo $domain?>services.php">Services</a></li>
+				<li class="pure-menu-item"><a class="pure-menu-link" href="<?php echo $domain?>business.php">Business &amp; Institutions</a></li>
 			</ul>
 		</div>
 	</div>
