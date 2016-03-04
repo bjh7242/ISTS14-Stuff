@@ -32,6 +32,7 @@
           break;
         case 'pay_bill':
           pay_bill();
+          break;
         case 'change_local_password':
           change_local_password();
           break;
