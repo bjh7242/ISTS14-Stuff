@@ -1,0 +1,40 @@
+Creds to any service - -2,500,000
+Backdoor a Box - -3,000,000
+Make a team do a Song - -1,000,000
+Hint to a challenge - -300,000
+Lose a team member (10 minutes) - -750,000
+Buy an existing backdoor (if available) - -2,500,000
+Power Outage for a given team (5 minutes min) - -2,000,000
+Physical exercise for a team member - -300,000 
+Cause a 5% inflation in the market - -1,000,000
+Cause a 5% deflation in the market - -1,000,000
+Revert one VM from another teams most recent snapshot - -1,500,000
+Add a root hypervisor user - -4,000,000
+Random White-teamer will help explain whats wrong on your box - -750,000
+Make red team sing - -2,000,000
+Changing another teams credentials - -750,000  
+Give a (5 minute) fire talk - +400,000
+Force a team to model for Will - -900,000
+Allow redteam access to a box - -2,500,000
+Write up a challenge and force white team to give another team a challenge - -2,000,000
+Force a team to run a specific binary - -3,200,000
+Force red team to give up a shell to your box - -1,500,000
+Transfer 1,000,000 from team A to team B - -1,200,000
+bet on Rock-paper-sissors  shoot with another team (talk to brandon) - -1,000,000
+Make a person get a Picture with the tiger statue in middle of campus - -750,000
+Change music - -150,000
+Friend zach allens Mom facebook.com/melissa.mulvey3 and she accepts - +1,000,000
+Force another team to give a campign speech for donald trump/Hillary - -750,000
+crab walk around the room without falling - +300,000
+Fix another teams scored service - +1,000,000
+Create Your Own -
+revert to snapshot - -1,500,000
+reset password for API - -300,000
+reset pin for API - -300,000
+Hands of keyboards a minute - -250,000
+SL to another teams wall - +300,000
+Blue Screen another teams Windows - +400,000
+dump (not drop) another teams database - +400,000
+start a VNC session and mess with user - +300,000
+install keylogger - +300,000
+Win ISTS - -1,000,000,000,000
