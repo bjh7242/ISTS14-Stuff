@@ -15,8 +15,8 @@ db = SQLAlchemy(app)
 db.create_all()
 WHITETEAM = 0
 ATM = -1
-BILLAMOUNT = 300000
-MAXTRANSFER = 300001
+BILLAMOUNT = 200000
+MAXTRANSFER = 50001
 TRANSFERTIMEMINS = 20
 
 
@@ -494,7 +494,7 @@ def transferMoney():
         amount = float(str(request.form["amount"]))
     except ValueError:
         return writeLogMessage(305,"We were unable to convert the amount provided to a float",str(request.form["amount"]))
-    if(amount < 0 or amount > 750000):
+    if(amount < 0 or amount > MAXTRANSFER and team!=ATM and amount!=BILLAMOUNT):
         return writeLogMessage(306,"The amount prescribed was invalid",str(amount))
     
     sourceAccountID = res.uid
@@ -502,8 +502,21 @@ def transferMoney():
     if(dest == None):
         return writeLogMessage(304,"We were unable to find a destination account that matched the provided",destAccount)
     destAccountID = dest.uid
+    destAccount = dest.accountNum
     source = Accounts.query.filter(Accounts.uid == sourceAccountID ).first()
     dest = Accounts.query.filter(Accounts.uid == destAccountID).first()
+    if(team!=WHITETEAM and team!=ATM):
+	    # N minutes ago
+	    minutesAgo = datetime.datetime.now() - datetime.timedelta(minutes=TRANSFERTIMEMINS)
+	    minutesAgo = minutesAgo.strftime('%s')
+	    minutesAgo = float(minutesAgo)
+	    out = Audit.query.filter(Audit.uidSrc == accountNum, Audit.uidDst==destAccount, Audit.action=="Transfered money", Audit.time > time.time()-(60*15)).all()
+	    total = 0.0
+	    for entry in out:
+                total += float(entry.data)
+	    print total
+	    if(total>=MAXTRANSFER):
+            	return writeLogMessage(311,"The user has transfered more than "+str(MAXTRANSFER) + " recently",str(total))
     if(source.balance - amount < 0):
         return writeLogMessage(307,"The source account does not have adequite funds to make that transfer",accountNum)
     else:
@@ -513,24 +526,13 @@ def transferMoney():
         db.session.commit()
     except IntegrityError as e:
         return writeLogMessage(308,"We were unable to transfer money due to a SQL issue",str(e))
-    if(team!=WHITETEAM and team!=ATM):
-	    # N minutes ago
-	    minutesAgo = datetime.datetime.now() - datetime.timedelta(minutes=TRANSFERTIMEMINS)
-	    minutesAgo = minutesAgo.strftime('%s')
-	    minutesAgo = float(minutesAgo)
-	    out = Audit.query.filter(Audit.uidSrc == accountNum, Audit.action=="Transfered money", Audit.uidDst==destAccount, Audit.time > minutesAgo).all()
-	    total = 0.0
-	    for entry in out:
-                total += float(entry.data)
-	    if(total>=MAXTRANSFER):
-            	return writeLogMessage(311,"The user has transfered more than "+str(MAXTRANSFER) + " recently",str(total))
     if 'payBill' in request.form.keys():
 	if(amount == BILLAMOUNT):
 		addAuditEntry(accountNum,destAccount,"Transfered money", str(amount),1,remote_ip)
 	else:	
 		return writeLogMessage(309,"The amount prescribed was not a valid bill amount",str(amount))
     else:
-	addAuditEntry(accountNum,destAccountID,"Transfered money",str(amount),0,remote_ip)
+	addAuditEntry(accountNum,destAccount,"Transfered money",str(amount),0,remote_ip)
     data = [ { 'Status': "Completed" } ]
     encoded_data = json.dumps(data)
     return encoded_data
@@ -559,10 +561,7 @@ def billPay():
     valid = checkSession(res1.uid,str(request.form["session"]),time.time(),remote_ip)
     if(valid == None):
         return writeLogMessage(1003,"The session identifier provided expired or was invalid",str(request.form["session"]))
-    hourago = datetime.datetime.now() - datetime.timedelta(hours=1)
-    hourago = hourago.strftime('%s')
-    hourago = float(hourago)
-    out = Audit.query.filter(Audit.uidSrc == srcAccount, Audit.uidDst==str(dstAccount), Audit.billPaid==1, Audit.time > hourago).first()
+    out = Audit.query.filter(Audit.uidSrc == srcAccount, Audit.data=="300000.0", Audit.billPaid==1,Audit.time > (time.time()-3600)).first()
     if(out != None):
         data = [ { 'Paid': "True" } ]
     	encoded_data = json.dumps(data)
@@ -577,4 +576,4 @@ def billPay():
     
 
 if __name__ == "__main__":
-	app.run(host=app.config['LISTENADDR'])
+	app.run(host=app.config['LISTENADDR'],port=5000)

@@ -70,6 +70,7 @@ def parse():
 		out = makeRequest("/transferMoney",args)
 		return '<button onclick="history.go(-1);">Go back</button><br>' + str(out)
 	if(ID == 3):
+		print "test"	
 		argsSession['password'] = str(request.form["Password"])
 		argsSession['challenge'] = str(request.form["Challenge"])
 		out = makeRequest("/getSession",argsSession)
@@ -128,4 +129,4 @@ def parse():
 
 
 if __name__ == "__main__":
-	app.run(host="10.0.1.10")
+	app.run(host="10.0.1.10",port=4999)
